@@ -1,0 +1,79 @@
+/*HEADER*/
+
+header {
+    position: relative;
+    background-color: #eee;
+    width: 1200px;
+    height: 120px;
+    margin: 0 auto;
+    top: 0;
+}
+
+header img {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-left: 25px;
+}
+
+header h1, h2 {
+    text-align: center;
+    margin-top: 0;
+}
+
+
+/******GAME CONTAINER******/
+
+.game-container {
+    height: 700px;
+    width: 1200px;
+    margin: 0 auto;
+    background-color: cadetblue;
+}
+
+/*STATS SECTION*/
+
+.stats-container {
+    position: relative;
+    display: inline-block;
+    float: left;
+    background-color: darkgrey;
+    width: 200px;
+    height: 700px;
+}
+
+/*GAME AREA*/
+
+.game-area {
+    position: relative;
+    display: inline-block;
+    float: right;
+    width: 1000px;
+    height: 700px;
+    background-color: aqua;
+    text-align: center;
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+.card {
+    width: 150px;
+    height: 200px;
+    display: inline-block;
+    position: relative;
+    background-color: transparent;
+}
+
+.card img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    border-radius: 20px;
+}
+
+.back:hover {
+    visibility: hidden;
+}
+
