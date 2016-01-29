@@ -1,19 +1,41 @@
+
+@font-face {
+    font-family: 'mortalkombat';
+    src: url('images/mk2.ttf');
+}
+
+
+body {
+    background-color: #000;
+    background: url("images/forest.jpg") no-repeat center/cover;
+    color: #bd2d19;
+    font-family: mortalkombat;
+}
+
 /*HEADER*/
 
 header {
     position: relative;
-    background-color: #eee;
     width: 1200px;
-    height: 120px;
-    margin: 0 auto;
+    height: 150px;
+    margin: 20px auto;
     top: 0;
+    background-color: yellow;
+    border-radius: 2em 0;
+    opacity: .3;
+}
+
+header h1 {
+    font-size: 48px;
 }
 
 header img {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    margin-left: 25px;
+    left: 40px;
+    height: 120px;
+    width: auto;
 }
 
 header h1, h2 {
@@ -28,7 +50,6 @@ header h1, h2 {
     height: 700px;
     width: 1200px;
     margin: 0 auto;
-    background-color: cadetblue;
 }
 
 /*STATS SECTION*/
@@ -36,14 +57,16 @@ header h1, h2 {
 .stats-container {
     position: relative;
     display: inline-block;
+    background-color: #000;
+    border-radius: 20px;
+    opacity: 0.8;
     float: left;
-    background-color: darkgrey;
     width: 200px;
     height: 700px;
 }
 
 .stats-container div {
-    height: 120px;
+    height: 100px;
     text-align: center;
 }
 
@@ -51,26 +74,37 @@ header h1, h2 {
     margin: 30px 0;
 }
 
+.stats-container button {
+    width: 80px;
+    height: 80px;
+    background-color: #fbd31e;
+    color: #000;
+    border-radius: 50%;
+    opacity: initial;
+    border: 5px solid #000;
+}
+
 /*GAME AREA*/
 
-.game-area {
+#game-area {
     position: relative;
     display: inline-block;
     float: right;
     width: 1000px;
     height: 700px;
-    background-color: aqua;
     text-align: center;
     padding: 15px;
     box-sizing: border-box;
 }
 
 .card {
-    width: 150px;
-    height: 200px;
+    width: 120px;
+    height: 180px;
     display: inline-block;
     position: relative;
     background-color: transparent;
+    margin: 0 10px 10px;
+    border-radius: 20px;
 }
 
 .card img {
@@ -80,9 +114,13 @@ header h1, h2 {
     height: 100%;
     width: 100%;
     border-radius: 20px;
+    border: 7px solid #000;
 }
 
-.back:hover {
-    visibility: hidden;
-}
+
+
+
+
+
+
 
