@@ -10,6 +10,8 @@ body {
     background: url("images/forest.jpg") no-repeat center/cover;
     color: #bd2d19;
     font-family: mortalkombat;
+    height: 100vh;
+    margin: 0;
 }
 
 /*HEADER*/
@@ -18,15 +20,28 @@ header {
     position: relative;
     width: 1200px;
     height: 150px;
-    margin: 20px auto;
-    top: 0;
-    background-color: yellow;
+    margin: 0 auto;
+    top: 15px;
+    background: rgba(251,211,30,0.6);
     border-radius: 2em 0;
-    opacity: .3;
+    border: 5px solid #000;
 }
 
 header h1 {
     font-size: 48px;
+}
+
+header h3 {
+    margin-top: 20px;
+}
+
+header h3>span {
+    margin-right: 15px;
+}
+
+header h3 span a {
+    text-decoration: none;
+    color: inherit;
 }
 
 header img {
@@ -38,7 +53,7 @@ header img {
     width: auto;
 }
 
-header h1, h2 {
+header h1, h2, h3 {
     text-align: center;
     margin-top: 0;
 }
@@ -47,6 +62,8 @@ header h1, h2 {
 /******GAME CONTAINER******/
 
 .game-container {
+    position: relative;
+    top: 25px;
     height: 700px;
     width: 1200px;
     margin: 0 auto;
@@ -57,12 +74,13 @@ header h1, h2 {
 .stats-container {
     position: relative;
     display: inline-block;
-    background-color: #000;
+    background: rgba(0,0,0,0.6);
     border-radius: 20px;
-    opacity: 0.8;
     float: left;
     width: 200px;
-    height: 700px;
+    height: 600px;
+    border: 5px solid #000;
+    box-sizing: border-box;
 }
 
 .stats-container div {
@@ -80,7 +98,6 @@ header h1, h2 {
     background-color: #fbd31e;
     color: #000;
     border-radius: 50%;
-    opacity: initial;
     border: 5px solid #000;
 }
 
@@ -117,9 +134,35 @@ header h1, h2 {
     border: 7px solid #000;
 }
 
+/********************************8*/
+/*ABOUT PAGE*/
+/*********************************/
 
+#aboutGame {
+    max-width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    background: rgba(0,0,0,0.6);
+    border-radius: 15px;
+    top: 70px;
+    padding: 20px;
+}
 
+#aboutGame h1 {
+    margin-top: 0;
+}
 
+#aboutGame img {
+    height: 200px;
+    width: auto;
+    border-radius: 50%;
+}
+
+#aboutGame p>a {
+    text-decoration: none;
+    color: #fbd31e;
+}
 
 
 
