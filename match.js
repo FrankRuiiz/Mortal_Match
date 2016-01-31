@@ -10,12 +10,26 @@ var match_counter = 0;
 var first = null;
 var second = null;
 var canClick = true;
+var matches = 0;
+var attempts = 0;
+var accuracy = 0;
+var games_played = 0;
+
 
 
 //************************
 //DOCUMENT READY FUNCTION
 //************************
 $(document).ready(function(){
+    display_stats();
+
+    $('.resetBtn').click(function(){
+        games_played++;
+        reset_stats();
+        display_stats();
+        $('.card').find('.back').show();
+    });
+
     //Event handler will run the function card-clicked when an element with a class of .card is clicked
     $('.card').click(function(){
         card_clicked(this);
@@ -42,20 +56,22 @@ function card_clicked(element){
         //if it is not set to null, the second card var gets the img src attr value
         second_card_clicked = $(element).find('img').attr('src');
         second = $(element).find('.back');
+        attempts++;
         //now that we have a value other than null in both variables, we can compare to see if they are a match
         if(first_card_clicked === second_card_clicked) {
             removeNOtFlippedClass(first,second);
             //if they are we increment the match counter, and then set the two vars back to null
             match_counter++;
+            matches++;
+            set_accuracy();
             resetCardsToNull();
             //if match counter and total possible matches are equal, all pairs have been matched and the game is over
             if(match_counter === total_possible_matches) {
-                    $('#game-area').html('<h1 class="fatality">Fatality!</h1>');
+                    //$('#game-area').html('<h1 class="fatality">Fatality!</h1>');
                     return;
             }
             //if they are not we run the next block
             else {
-                return;
             }
         }
         else {
@@ -66,8 +82,9 @@ function card_clicked(element){
                 canClick = true;
             },2000);
             resetCardsToNull();
-            return;
         }
+
+        display_stats();
     }
 }
 
@@ -80,4 +97,24 @@ function removeNOtFlippedClass(first,second) {
     $(first).removeClass('notFlipped');
     $(second).removeClass('notFlipped');
 }
+
+function display_stats() {
+    $('.games-played .value').text(games_played);
+    $('.attempts .value').text(attempts);
+    $('.accuracy .value').text(accuracy + "%");
+}
+
+
+function reset_stats() {
+    accuracy = 0;
+    matches = 0;
+    attempts = 0;
+    display_stats();
+}
+
+function set_accuracy() {
+    accuracy = Math.round((matches / attempts) * 100);
+}
+
+
 
