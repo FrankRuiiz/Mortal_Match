@@ -9,7 +9,7 @@ body {
     background-color: #000;
     background: url("images/forest.jpg") no-repeat center/cover;
     color: #bd2d19;
-    font-family: mortalkombat;
+    font-family: mortalkombat, Helvetica, sans-serif;
     height: 100vh;
     margin: 0;
 }
@@ -114,6 +114,11 @@ header h1, h2, h3 {
     box-sizing: border-box;
 }
 
+.fatality {
+    margin-top: 25%;
+    font-size: 48px;
+}
+
 .card {
     width: 120px;
     height: 180px;
@@ -132,6 +137,10 @@ header h1, h2, h3 {
     width: 100%;
     border-radius: 20px;
     border: 7px solid #000;
+}
+
+.back {
+    cursor: pointer;
 }
 
 /********************************8*/
