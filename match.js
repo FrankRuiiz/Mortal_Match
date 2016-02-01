@@ -3,10 +3,9 @@
 //************************
 var first_card_clicked = null;
 var second_card_clicked = null;
-//Assign the total possible matches (for this test run it is 2/ 2 pairs)
+//Assign the total possible matches 118/2 = 9
 var total_possible_matches = 9;
 //Tracks the number of matches during the game
-var match_counter = 0;
 var first = null;
 var second = null;
 var canClick = true;
@@ -27,6 +26,7 @@ $(document).ready(function(){
         games_played++;
         reset_stats();
         display_stats();
+        $('.fatality').hide();
         $('.card').find('.back').show();
     });
 
@@ -39,6 +39,7 @@ $(document).ready(function(){
 
 //Function to execute when a card is clicked
 function card_clicked(element){
+
     if(!canClick) {
         return;
     }
@@ -61,20 +62,20 @@ function card_clicked(element){
         if(first_card_clicked === second_card_clicked) {
             removeNOtFlippedClass(first,second);
             //if they are we increment the match counter, and then set the two vars back to null
-            match_counter++;
             matches++;
             set_accuracy();
             resetCardsToNull();
             //if match counter and total possible matches are equal, all pairs have been matched and the game is over
-            if(match_counter === total_possible_matches) {
-                    //$('#game-area').html('<h1 class="fatality">Fatality!</h1>');
-                    return;
+            if(matches === total_possible_matches) {
+                $('.fatality').show();
+                return;
             }
             //if they are not we run the next block
             else {
             }
         }
         else {
+            set_accuracy();
             canClick = false;
             //sets the unmatched cards to show the back again after two seconds
             setTimeout(function(){

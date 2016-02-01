@@ -101,6 +101,10 @@ header h1, h2, h3 {
     border: 5px solid #000;
 }
 
+.stats-container button:focus {
+    outline: none;
+}
+
 /*GAME AREA*/
 
 #game-area {
@@ -108,15 +112,20 @@ header h1, h2, h3 {
     display: inline-block;
     float: right;
     width: 1000px;
-    height: 700px;
+    height: 600px;
     text-align: center;
     padding: 15px;
     box-sizing: border-box;
 }
 
 .fatality {
-    margin-top: 25%;
-    font-size: 48px;
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 7em;
+    display: none;
 }
 
 .card {
