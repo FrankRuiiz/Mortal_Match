@@ -15,11 +15,11 @@ var accuracy = 0;
 var games_played = 0;
 
 
-
 //************************
 //DOCUMENT READY FUNCTION
 //************************
 $(document).ready(function(){
+    $('.fatality').hide();
     display_stats();
 
     $('.resetBtn').click(function(){
@@ -27,7 +27,7 @@ $(document).ready(function(){
         reset_stats();
         display_stats();
         $('.fatality').hide();
-        $('.card').find('.back').show();
+        $('.card').find('.back').show().addClass('notFlipped');
     });
 
     //Event handler will run the function card-clicked when an element with a class of .card is clicked
@@ -39,7 +39,6 @@ $(document).ready(function(){
 
 //Function to execute when a card is clicked
 function card_clicked(element){
-
     if(!canClick) {
         return;
     }
@@ -84,7 +83,6 @@ function card_clicked(element){
             },2000);
             resetCardsToNull();
         }
-
         display_stats();
     }
 }
@@ -104,7 +102,6 @@ function display_stats() {
     $('.attempts .value').text(attempts);
     $('.accuracy .value').text(accuracy + "%");
 }
-
 
 function reset_stats() {
     accuracy = 0;
