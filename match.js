@@ -1,11 +1,6 @@
-//************************
-//GLOBAL VARIABLES
-//************************
 var first_card_clicked = null;
 var second_card_clicked = null;
-//Assign the total possible matches 118/2 = 9
 var total_possible_matches = 9;
-//Tracks the number of matches during the game
 var first = null;
 var second = null;
 var canClick = true;
@@ -15,30 +10,11 @@ var accuracy = 0;
 var games_played = 0;
 
 
-//************************
-//DOCUMENT READY FUNCTION
-//************************
-$(document).ready(function(){
-    $('.fatality').hide();
-    display_stats();
-
-    $('.resetBtn').click(function(){
-        games_played++;
-        reset_stats();
-        display_stats();
-        $('.fatality').hide();
-        $('.card').find('.back').show().addClass('notFlipped');
-    });
-
-    //Event handler will run the function card-clicked when an element with a class of .card is clicked
-    $('.card').click(function(){
-        card_clicked(this);
-    });
-});
 
 
 //Function to execute when a card is clicked
 function card_clicked(element){
+
     if(!canClick) {
         return;
     }
@@ -58,6 +34,7 @@ function card_clicked(element){
         second = $(element).find('.back');
         attempts++;
         //now that we have a value other than null in both variables, we can compare to see if they are a match
+
         if(first_card_clicked === second_card_clicked) {
             removeNOtFlippedClass(first,second);
             //if they are we increment the match counter, and then set the two vars back to null
@@ -69,10 +46,11 @@ function card_clicked(element){
                 $('.fatality').show();
                 return;
             }
-            //if they are not we run the next block
-            else {
+
+            else { //if they are not we run the next block
             }
         }
+
         else {
             set_accuracy();
             canClick = false;
@@ -113,6 +91,29 @@ function reset_stats() {
 function set_accuracy() {
     accuracy = Math.round((matches / attempts) * 100);
 }
+
+//************************
+//DOCUMENT READY FUNCTION
+//************************
+$(document).ready(function(){
+
+    $('.fatality').hide();
+
+    display_stats();
+
+    $('.resetBtn').click(function(){
+        games_played++;
+        reset_stats();
+        display_stats();
+        $('.fatality').hide();
+        $('.card').find('.back').show().addClass('notFlipped');
+    });
+
+    //Event handler will run the function card-clicked when an element with a class of .card is clicked
+    $('.card').click(function(){
+        card_clicked(this);
+    });
+});
 
 
 
