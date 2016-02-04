@@ -19,6 +19,15 @@ var imgSource = [
     "images/shangtsung.jpg",
     "images/sonja.jpg",
     "images/subzero.jpg",
+    "images/katana.jpg",
+    "images/reptile.jpg",
+    "images/jax.jpg",
+    "images/kato.jpg",
+    "images/luekang.jpg",
+    "images/scorpion.jpg",
+    "images/shangtsung.jpg",
+    "images/sonja.jpg",
+    "images/subzero.jpg",
 ];
 
 var randomImages = [];
@@ -32,7 +41,13 @@ function shuffleCards() {
         randomImages.push(temp[0]);
     }
     console.log(randomImages);
+
+    for(var j = 0; j < randomImages.length; j++) {
+        $('#game-area .card:nth-child(' + (j + 1) + ')').prepend('<div class="front"><img src="' + randomImages[j] + '"></div>');
+    }
 }
+
+
 
 
 
@@ -112,6 +127,7 @@ function reset_stats() {
     matches = 0;
     attempts = 0;
     display_stats();
+    shuffleCards()
 }
 
 function set_accuracy() {
