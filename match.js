@@ -9,6 +9,32 @@ var attempts = 0;
 var accuracy = 0;
 var games_played = 0;
 
+var imgSource = [
+    "images/katana.jpg",
+    "images/reptile.jpg",
+    "images/jax.jpg",
+    "images/kato.jpg",
+    "images/luekang.jpg",
+    "images/scorpion.jpg",
+    "images/shangtsung.jpg",
+    "images/sonja.jpg",
+    "images/subzero.jpg",
+];
+
+var randomImages = [];
+var imgSourceLength = imgSource.length;
+
+function shuffleCards() {
+    for (var i = 0; i < imgSourceLength; i++) {
+        var currentLength = imgSource.length;
+        var randomNumber = Math.floor(Math.random() * currentLength);
+        var temp = (imgSource.splice(randomNumber, 1));
+        randomImages.push(temp[0]);
+    }
+    console.log(randomImages);
+}
+
+
 
 
 
@@ -96,6 +122,8 @@ function set_accuracy() {
 //DOCUMENT READY FUNCTION
 //************************
 $(document).ready(function(){
+
+    shuffleCards();
 
     $('.fatality').hide();
 
