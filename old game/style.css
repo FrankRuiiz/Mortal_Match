@@ -1,0 +1,186 @@
+
+@font-face {
+    font-family: 'mortalkombat';
+    src: url('../images/mk2.ttf');
+}
+
+
+body {
+    background-color: #000;
+    background: url("../images/forest.jpg") no-repeat center/cover;
+    color: #bd2d19;
+    font-family: mortalkombat, Helvetica, sans-serif;
+    margin: 0;
+}
+
+/*HEADER*/
+
+header {
+    position: relative;
+    width: 1200px;
+    height: 150px;
+    margin: 0 auto;
+    top: 15px;
+    background: rgba(251,211,30,0.6);
+    border-radius: 2em 0;
+    border: 5px solid #000;
+}
+
+header h1 {
+    font-size: 48px;
+}
+
+header h3 {
+    margin-top: 20px;
+}
+
+header h3>span {
+    margin-right: 15px;
+}
+
+header h3 span a {
+    text-decoration: none;
+    color: inherit;
+}
+
+header img {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 40px;
+    height: 120px;
+    width: auto;
+}
+
+header h1, h2, h3 {
+    text-align: center;
+    margin-top: 0;
+}
+
+
+/******GAME CONTAINER******/
+
+.game-container {
+    position: relative;
+    top: 25px;
+    height: 700px;
+    width: 1200px;
+    margin: 0 auto;
+}
+
+/*STATS SECTION*/
+
+.stats-container {
+    position: relative;
+    display: inline-block;
+    background: rgba(0,0,0,0.6);
+    border-radius: 20px;
+    float: left;
+    width: 200px;
+    height: 600px;
+    border: 5px solid #000;
+    box-sizing: border-box;
+}
+
+.stats-container div {
+    height: 100px;
+    text-align: center;
+}
+
+.stats {
+    margin: 30px 0;
+}
+
+.stats-container button {
+    width: 80px;
+    height: 80px;
+    background-color: #fbd31e;
+    color: #000;
+    border-radius: 50%;
+    border: 5px solid #000;
+}
+
+.stats-container button:focus {
+    outline: none;
+}
+
+/*GAME AREA*/
+
+#game-area {
+    position: relative;
+    display: inline-block;
+    float: right;
+    width: 1000px;
+    height: 600px;
+    text-align: center;
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+.fatality {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 7em;
+    display: none;
+}
+
+.card {
+    width: 120px;
+    height: 180px;
+    display: inline-block;
+    position: relative;
+    background-color: transparent;
+    margin: 0 10px 10px;
+    border-radius: 20px;
+}
+
+.card img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    border-radius: 20px;
+    border: 7px solid #000;
+}
+
+.back {
+    cursor: pointer;
+}
+
+/********************************8*/
+/*ABOUT PAGE*/
+/*********************************/
+
+#aboutGame {
+    max-width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    background: rgba(0,0,0,0.6);
+    border-radius: 15px;
+    top: 70px;
+    padding: 20px;
+}
+
+#aboutGame h1 {
+    margin-top: 0;
+}
+
+#aboutGame img {
+    height: 200px;
+    width: auto;
+    border-radius: 50%;
+}
+
+#aboutGame p>a {
+    text-decoration: none;
+    color: #fbd31e;
+}
+
+
+
+
