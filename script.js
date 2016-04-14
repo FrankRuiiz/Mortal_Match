@@ -8,11 +8,11 @@
  */
 
 
-var Card = function(imgPath){
+var Card = function(imgFace){
     var self = this;
     this.$element = null;
 
-    this.path = 'images/' + imgPath + 'jpg';
+    this.path = 'images/' + imgFace + '.jpg';
 
     this.render = function() {
 
@@ -37,7 +37,21 @@ var Card = function(imgPath){
         card_container.append(card);
 
         self.$element = card_container;
-        console.log(self.$element);
+
+        var $card = self.$element.find('.card');
+        console.log($card);
+
+        $card.addClass('card-' + imgFace);
+
+        $card.find('.front').append('<img src="' + self.path + '" alt="front of card">');
+        $card.find('.back').append('<img src="images/scales.jpg" alt="back of card">');
+
+        // $card.on('click', function(event){ TODO: click function for flipping a card
+        //    event.preventDefault();
+        //
+        // });
+
+        return this.$element;
     }
 };
 
