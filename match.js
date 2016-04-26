@@ -10,6 +10,8 @@ var first_card_clicked = null,
     games_played = 0;
 
 
+
+// Game flow functionality
 function card_clicked($element) {
 
     if(!canClick) {
@@ -57,8 +59,9 @@ function resetCards() {
     second_card_clicked = null;
 }
 
-// stats functions
 
+
+// Stats Section Functionality
 function calculateAverage() {
     accuracy = Math.round((match_counter / attempts) * 100);
 }
