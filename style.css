@@ -111,7 +111,7 @@ header h1, h2, h3 {
     display: inline-block;
     float: right;
     width: 1000px;
-    height: 600px;
+    height: 700px;
     text-align: center;
     padding: 15px;
     box-sizing: border-box;
@@ -150,6 +150,7 @@ header h1, h2, h3 {
 .back {
     cursor: pointer;
 }
+
 
 /********************************8*/
 /*ABOUT PAGE*/
