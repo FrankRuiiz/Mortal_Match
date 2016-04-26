@@ -4,7 +4,10 @@ var first_card_clicked = null,
     second_card_clicked = null,
     total_possible_matches = 2,
     match_counter = 0,
-    canClick = true;
+    canClick = true,
+    attempts = 0,
+    accuracy = 0,
+    games_played = 0;
 
 
 function card_clicked($element) {
@@ -19,6 +22,9 @@ function card_clicked($element) {
     }
     else {
         second_card_clicked = $element;
+        attempts++;
+        calculateAverage();
+        displayStats();
         checkForMatch();
     }
 }
@@ -51,30 +57,42 @@ function resetCards() {
     second_card_clicked = null;
 }
 
+// stats functions
 
+function calculateAverage() {
+    accuracy = Math.round((match_counter / attempts) * 100);
+}
 
+function displayStats() {
+    $('.games-played .value').html(games_played);
+    $('.attempts .value').html(attempts);
+    $('.accuracy .value').html( accuracy + ' %');
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
+function resetStats() {
+    accuracy = 0;
+    match_counter = 0;
+    attempts = 0;
+    displayStats();
+}
 
 
 
 
 $(document).ready(function(){
+    displayStats();
 
     $('#game-area').on('click', '.card', function (e) {
         e.preventDefault();
         card_clicked($(this));
+    });
+
+    $('#resetBtn').click(function(e) {
+        e.preventDefault();
+        games_played++;
+        resetStats();
+        displayStats();
+        $('.card').find('.back').show();
     });
 
 });
