@@ -50,17 +50,23 @@ var Card = function(imgFace){
         //    event.preventDefault();
         //
         // });
+        console.log(this.$element);
 
-        return this.$element;
+        $('#game').append(this.$element);
+        // return this.$element;
     }
 };
 
-var card1 = new Card('jax');
-
-card1.render();
 
 
 
+$(document).ready(function(){
+    var card1 = new Card('jax');
 
+    card1.render();
+
+
+
+});
 
 
