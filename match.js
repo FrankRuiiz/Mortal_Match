@@ -7,9 +7,24 @@ var first_card_clicked = null,
     canClick = true,
     attempts = 0,
     accuracy = 0,
-    games_played = 0;
+    games_played = 0,
+    $game_area = $('#game-area'),
+    images = ['katana', 'kato', 'luekang', 'reptile', 'scorpion', 'shangtsung', 'sonja', 'subzero', 'jax'],
+    random_array = [];
 
 
+
+// Create cards
+
+function createRandomCards() {
+
+    var dbl_images = [];
+    dbl_images = dbl_images.concat(images).concat(images);
+
+    console.log(dbl_images);
+}
+
+createRandomCards();
 
 // Game flow functionality
 function card_clicked($element) {
@@ -85,7 +100,7 @@ function resetStats() {
 $(document).ready(function(){
     displayStats();
 
-    $('#game-area').on('click', '.card', function (e) {
+    $game_area.on('click', '.card', function (e) {
         e.preventDefault();
         card_clicked($(this));
     });
