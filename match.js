@@ -9,22 +9,37 @@ var first_card_clicked = null,
     accuracy = 0,
     games_played = 0,
     $game_area = $('#game-area'),
-    images = ['katana', 'kato', 'luekang', 'reptile', 'scorpion', 'shangtsung', 'sonja', 'subzero', 'jax'],
-    random_array = [];
-
+    images = ['katana', 'kato', 'luekang', 'reptile', 'scorpion', 'shangtsung', 'sonja', 'subzero', 'jax'];
 
 
 // Create cards
 
-function createRandomCards() {
+function createGame() {
 
-    var dbl_images = [];
-    dbl_images = dbl_images.concat(images).concat(images);
+    $game_area.empty();
+    var game_images = [].concat(images).concat(images);
 
-    console.log(dbl_images);
+    for (var i = 0; i < 3; i++) {   // will shuffle the game_images array 3 times
+        game_images = shuffle(game_images);
+    }
+
+    
 }
 
-createRandomCards();
+
+function shuffle(arr) {
+    var counter = arr.length;
+    while(counter > 0) {
+        var index = Math.floor(Math.random() * counter);
+        counter--;
+        var temp = arr[counter];
+        arr[counter] = arr[index];
+        arr[index] = temp;
+    }
+    return arr;
+}
+
+
 
 // Game flow functionality
 function card_clicked($element) {
@@ -99,6 +114,7 @@ function resetStats() {
 
 $(document).ready(function(){
     displayStats();
+    createGame();
 
     $game_area.on('click', '.card', function (e) {
         e.preventDefault();
