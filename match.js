@@ -20,14 +20,35 @@ function createGame() {
     var game_images = [].concat(images).concat(images);
 
     for (var i = 0; i < 3; i++) {   // will shuffle the game_images array 3 times
-        game_images = shuffle(game_images);
+        game_images = randomize(game_images);
     }
 
+    game_images.forEach(renderCards);
     
 }
 
+function renderCards(value, index) {
+    var $cardDiv = $('<div>', {
+        class: 'card'
+    });
+    var $frontDiv = $('<div>', {
+       class: 'front'
+    }).appendTo($cardDiv);
+    var $frontImg = $('<img>', {
+        src: 'images/' + value + '.jpg',
+        alt: value
+    }).appendTo($frontDiv);
+    var $backDiv = $('<div>', {
+       class: 'back'
+    }).appendTo($cardDiv);
+    var $backImg = $('<img>', {
+       src: 'images/redscales.jpg'
+    }).appendTo($backDiv);
 
-function shuffle(arr) {
+    $cardDiv.appendTo($game_area);
+}
+
+function randomize(arr) {
     var counter = arr.length;
     while(counter > 0) {
         var index = Math.floor(Math.random() * counter);
