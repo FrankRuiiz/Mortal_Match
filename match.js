@@ -12,40 +12,58 @@ var first_card_clicked = null,
     images = ['katana', 'kato', 'luekang', 'reptile', 'scorpion', 'shangtsung', 'sonja', 'subzero', 'jax'];
 
 
-// Create cards
+// Create game area
 
 function createGame() {
-
     $game_area.empty();
     var game_images = [].concat(images).concat(images);
 
-    for (var i = 0; i < 3; i++) {   // will shuffle the game_images array 3 times
+    for (var i = 0; i < 3; i++) {   // will shuffle the game_images array 3 times to ensure randomness
         game_images = randomize(game_images);
     }
-
-    game_images.forEach(renderCards);
-    
+    game_images.forEach(renderCards); // creates elements for each card and appends them to the DOM
 }
 
 function renderCards(value, index) {
-    var $cardDiv = $('<div>', {
-        class: 'card'
-    });
-    var $frontDiv = $('<div>', {
-       class: 'front'
-    }).appendTo($cardDiv);
-    var $frontImg = $('<img>', {
-        src: 'images/' + value + '.jpg',
-        alt: value
-    }).appendTo($frontDiv);
-    var $backDiv = $('<div>', {
-       class: 'back'
-    }).appendTo($cardDiv);
-    var $backImg = $('<img>', {
-       src: 'images/redscales.jpg'
-    }).appendTo($backDiv);
+    // var $cardDiv = $('<div>', {
+    //     class: 'card'
+    // });
+    // var $frontDiv = $('<div>', {
+    //    class: 'front'
+    // }).appendTo($cardDiv);
+    // var $frontImg = $('<img>', {
+    //     src: 'images/' + value + '.jpg',
+    //     alt: value
+    // }).appendTo($frontDiv);
+    // var $backDiv = $('<div>', {
+    //    class: 'back'
+    // }).appendTo($cardDiv);
+    // var $backImg = $('<img>', {
+    //    src: 'images/redscales.jpg'
+    // }).appendTo($backDiv);
+    //
+    // $cardDiv.appendTo($game_area);
 
-    $cardDiv.appendTo($game_area);
+    var $cardContainer = $('<div>', {
+       class: 'card-container'
+    });
+    var $card = $('<div>', {
+       class: 'card',
+       click: function(e) {
+           e.preventDefault();
+           $(this).addClass('flipped');
+       }
+    }).appendTo($cardContainer);
+    var $cardBack = $('<img>', {
+        class: 'back',
+        src: 'images/' + value + '.jpg'
+    }).appendTo($card);
+    var $cardFront = $('<img>', {
+        class: 'front',
+        src: 'images/redscales.jpg'
+    }).appendTo($card);
+
+    $cardContainer.appendTo($game_area);
 }
 
 function randomize(arr) {
@@ -64,12 +82,10 @@ function randomize(arr) {
 
 // Game flow functionality
 function card_clicked($element) {
-
     if(!canClick) {
         return;
     }
 
-    $element.find('.back').hide();
     if( first_card_clicked === null ) {
         first_card_clicked = $element;
     }
@@ -83,7 +99,7 @@ function card_clicked($element) {
 }
 
 function checkForMatch() {
-    if(first_card_clicked.find('.front img').attr('src') === second_card_clicked.find('.front img').attr('src')) {
+    if(first_card_clicked.find('.back').attr('src') === second_card_clicked.find('.back').attr('src')) {
         match_counter++;
         checkGameWin();
         resetCards();
@@ -91,8 +107,8 @@ function checkForMatch() {
     else {
         canClick = false;
         setTimeout(function() {
-            first_card_clicked.find('.back').show();
-            second_card_clicked.find('.back').show();
+            first_card_clicked.removeClass('flipped');
+            second_card_clicked.removeClass('flipped');
             canClick = true;
             resetCards();
         }, 2000);
@@ -132,7 +148,6 @@ function resetStats() {
 
 
 
-
 $(document).ready(function(){
     displayStats();
     createGame();
@@ -145,9 +160,10 @@ $(document).ready(function(){
     $('#resetBtn').click(function(e) {
         e.preventDefault();
         games_played++;
+        createGame();
         resetStats();
         displayStats();
-        $('.card').find('.back').show();
+        $('.card').removeClass('flipped');
     });
 
 });
