@@ -1,163 +1,169 @@
-var first_card_clicked = null;
-var second_card_clicked = null;
-var total_possible_matches = 9;
-var first = null;
-var second = null;
-var canClick = true;
-var matches = 0;
-var attempts = 0;
-var accuracy = 0;
-var games_played = 0;
 
-var imgSource = [
-    "images/katana.jpg",
-    "images/reptile.jpg",
-    "images/jax.jpg",
-    "images/kato.jpg",
-    "images/luekang.jpg",
-    "images/scorpion.jpg",
-    "images/shangtsung.jpg",
-    "images/sonja.jpg",
-    "images/subzero.jpg",
-    "images/katana.jpg",
-    "images/reptile.jpg",
-    "images/jax.jpg",
-    "images/kato.jpg",
-    "images/luekang.jpg",
-    "images/scorpion.jpg",
-    "images/shangtsung.jpg",
-    "images/sonja.jpg",
-    "images/subzero.jpg",
-];
 
-var randomImages = [];
-var imgSourceLength = imgSource.length;
+var first_card_clicked = null,
+    second_card_clicked = null,
+    total_possible_matches = 8,
+    match_counter = 0,
+    canClick = true,
+    attempts = 0,
+    accuracy = 0,
+    games_played = 0,
+    $game_area = $('#game-area'),
+    images = ['katana', 'kato', 'luekang', 'reptile', 'scorpion', 'shangtsung', 'sonja', 'subzero', 'jax'];
 
-function shuffleCards() {
-    for (var i = 0; i < imgSourceLength; i++) {
-        var currentLength = imgSource.length;
-        var randomNumber = Math.floor(Math.random() * currentLength);
-        var temp = (imgSource.splice(randomNumber, 1));
-        randomImages.push(temp[0]);
+
+// Create game area
+
+function createGame() {
+    $game_area.empty();
+    var game_images = [].concat(images).concat(images);
+
+    for (var i = 0; i < 3; i++) {   // will shuffle the game_images array 3 times to ensure randomness
+        game_images = randomize(game_images);
     }
-    console.log(randomImages);
+    game_images.forEach(renderCards); // creates elements for each card and appends them to the DOM
+}
 
-    for(var j = 0; j < randomImages.length; j++) {
-        $('#game-area .card:nth-child(' + (j + 1) + ')').prepend('<div class="front"><img src="' + randomImages[j] + '"></div>');
+function renderCards(value, index) {
+    // var $cardDiv = $('<div>', {
+    //     class: 'card'
+    // });
+    // var $frontDiv = $('<div>', {
+    //    class: 'front'
+    // }).appendTo($cardDiv);
+    // var $frontImg = $('<img>', {
+    //     src: 'images/' + value + '.jpg',
+    //     alt: value
+    // }).appendTo($frontDiv);
+    // var $backDiv = $('<div>', {
+    //    class: 'back'
+    // }).appendTo($cardDiv);
+    // var $backImg = $('<img>', {
+    //    src: 'images/redscales.jpg'
+    // }).appendTo($backDiv);
+    //
+    // $cardDiv.appendTo($game_area);
+
+    var $cardContainer = $('<div>', {
+       class: 'card-container'
+    });
+    var $card = $('<div>', {
+       class: 'card',
+       click: function(e) {
+           e.preventDefault();
+           $(this).addClass('flipped');
+       }
+    }).appendTo($cardContainer);
+    var $cardBack = $('<img>', {
+        class: 'back',
+        src: 'images/' + value + '.jpg'
+    }).appendTo($card);
+    var $cardFront = $('<img>', {
+        class: 'front',
+        src: 'images/redscales.jpg'
+    }).appendTo($card);
+
+    $cardContainer.appendTo($game_area);
+}
+
+function randomize(arr) {
+    var counter = arr.length;
+    while(counter > 0) {
+        var index = Math.floor(Math.random() * counter);
+        counter--;
+        var temp = arr[counter];
+        arr[counter] = arr[index];
+        arr[index] = temp;
     }
+    return arr;
 }
 
 
 
-
-
-
-
-//Function to execute when a card is clicked
-function card_clicked(element){
-
+// Game flow functionality
+function card_clicked($element) {
     if(!canClick) {
         return;
     }
-    //The element card's back image is set to hidden when clicked
-    $(element).find('.back').hide();
 
-    //check to see if the fist card clicked var is set to null
-    if(first_card_clicked === null){
-        //if it is, it is set to the element's img src attribute value
-        first_card_clicked = $(element).find('img').attr('src');
-        first = $(element).find('.back');
-        return;
+    if( first_card_clicked === null ) {
+        first_card_clicked = $element;
     }
     else {
-        //if it is not set to null, the second card var gets the img src attr value
-        second_card_clicked = $(element).find('img').attr('src');
-        second = $(element).find('.back');
+        second_card_clicked = $element;
         attempts++;
-        //now that we have a value other than null in both variables, we can compare to see if they are a match
-
-        if(first_card_clicked === second_card_clicked) {
-            removeNOtFlippedClass(first,second);
-            //if they are we increment the match counter, and then set the two vars back to null
-            matches++;
-            set_accuracy();
-            resetCardsToNull();
-            //if match counter and total possible matches are equal, all pairs have been matched and the game is over
-            if(matches === total_possible_matches) {
-                $('.fatality').show();
-                return;
-            }
-
-            else { //if they are not we run the next block
-            }
-        }
-
-        else {
-            set_accuracy();
-            canClick = false;
-            //sets the unmatched cards to show the back again after two seconds
-            setTimeout(function(){
-                $('.card').find('.notFlipped').show();
-                canClick = true;
-            },2000);
-            resetCardsToNull();
-        }
-        display_stats();
+        calculateAverage();
+        displayStats();
+        checkForMatch();
     }
 }
 
-function resetCardsToNull() {
+function checkForMatch() {
+    if(first_card_clicked.find('.back').attr('src') === second_card_clicked.find('.back').attr('src')) {
+        match_counter++;
+        checkGameWin();
+        resetCards();
+    }
+    else {
+        canClick = false;
+        setTimeout(function() {
+            first_card_clicked.removeClass('flipped');
+            second_card_clicked.removeClass('flipped');
+            canClick = true;
+            resetCards();
+        }, 1000);
+    }
+}
+
+function checkGameWin() {
+    if ( match_counter === total_possible_matches ) {
+        alert("you win!");  //TODO: Display win condition message
+    }
+}
+
+function resetCards() {
     first_card_clicked = null;
     second_card_clicked = null;
 }
 
-function removeNOtFlippedClass(first,second) {
-    $(first).removeClass('notFlipped');
-    $(second).removeClass('notFlipped');
+
+
+// Stats Section Functionality
+function calculateAverage() {
+    accuracy = Math.round((match_counter / attempts) * 100);
 }
 
-function display_stats() {
-    $('.games-played .value').text(games_played);
-    $('.attempts .value').text(attempts);
-    $('.accuracy .value').text(accuracy + "%");
+function displayStats() {
+    $('.games-played .value').html(games_played);
+    $('.attempts .value').html(attempts);
+    $('.accuracy .value').html( accuracy + ' %');
 }
 
-function reset_stats() {
+function resetStats() {
     accuracy = 0;
-    matches = 0;
+    match_counter = 0;
     attempts = 0;
-    display_stats();
-    shuffleCards()
+    displayStats();
 }
 
-function set_accuracy() {
-    accuracy = Math.round((matches / attempts) * 100);
-}
 
-//************************
-//DOCUMENT READY FUNCTION
-//************************
+
 $(document).ready(function(){
+    displayStats();
+    createGame();
 
-    shuffleCards();
+    $game_area.on('click', '.card', function (e) {
+        e.preventDefault();
+        card_clicked($(this));
+    });
 
-    $('.fatality').hide();
-
-    display_stats();
-
-    $('.resetBtn').click(function(){
+    $('#resetBtn').click(function(e) {
+        e.preventDefault();
         games_played++;
-        reset_stats();
-        display_stats();
-        $('.fatality').hide();
-        $('.card').find('.back').show().addClass('notFlipped');
+        createGame();
+        resetStats();
+        displayStats();
+        $('.card').removeClass('flipped');
     });
 
-    //Event handler will run the function card-clicked when an element with a class of .card is clicked
-    $('.card').click(function(){
-        card_clicked(this);
-    });
 });
-
-
-

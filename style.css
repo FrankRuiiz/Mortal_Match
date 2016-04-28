@@ -108,13 +108,19 @@ header h1, h2, h3 {
 
 #game-area {
     position: relative;
-    display: inline-block;
+
     float: right;
     width: 1000px;
-    height: 600px;
+    height: 700px;
     text-align: center;
     padding: 15px;
     box-sizing: border-box;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+
 }
 
 .fatality {
@@ -127,29 +133,73 @@ header h1, h2, h3 {
     display: none;
 }
 
-.card {
-    width: 120px;
+/*.card {*/
+    /*width: 120px;*/
+    /*height: 180px;*/
+    /*display: inline-block;*/
+    /*position: relative;*/
+    /*background-color: transparent;*/
+    /*margin: 0 10px 10px;*/
+    /*border-radius: 20px;*/
+/*}*/
+
+/*.card img {*/
+    /*position: absolute;*/
+    /*top: 0;*/
+    /*left: 0;*/
+    /*height: 100%;*/
+    /*width: 100%;*/
+    /*border-radius: 20px;*/
+    /*border: 7px solid #000;*/
+/*}*/
+
+/*.back {*/
+    /*cursor: pointer;*/
+/*}*/
+
+.card-container {
+
+    width: 13%;
     height: 180px;
-    display: inline-block;
+    margin: 0 1%;
     position: relative;
-    background-color: transparent;
-    margin: 0 10px 10px;
-    border-radius: 20px;
+    perspective: 800px;
+
+    /*flex-shrink: 1;*/
+    /*align-items: center;*/
+
+}
+
+.card {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transform-style: preserve-3d;
+    transition: transform .5s;
+}
+
+.card {
+    transform-origin: right center;
 }
 
 .card img {
+    margin: 0;
+    display: block;
     position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
     width: 100%;
-    border-radius: 20px;
-    border: 7px solid #000;
+    height: 100%;
+    backface-visibility: hidden;
 }
 
-.back {
-    cursor: pointer;
+.card .back {
+    transform: rotateY(180deg);
 }
+
+.card.flipped {
+    transform: translateX(-100%)rotateY(-180deg);
+}
+
+
 
 /********************************8*/
 /*ABOUT PAGE*/

@@ -1,151 +1,54 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Memory Match Game</title>
+    <title>Mortal Match</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://necolas.github.io/normalize.css/3.0.2/normalize.css" type="text/css">
     <link rel="stylesheet" href="style.css" type="text/css">
-    <script src="https://code.jquery.com/jquery-2.1.4.min.js" type="text/javascript"></script>
-    <!--<script src="http://learning-fuze.github.io/memory_match/v0.1/script.js" type="text/javascript"></script>-->
-    <script src="match.js" type="text/javascript"></script>
-
-
 </head>
 <body>
-<!--*************-->
-<!--HEADER SECTION-->
-<!--*************-->
-<header>
-    <img src="images/mklogo.png">
-    <h3><span><a href="about.html">About</a></span><span><a href="#">Settings</a></span></h3>
-    <h1>Match MK</h1>
-</header>
-<!--End of header section-->
 
-<div class="game-container">
-    <!--*************-->
-    <!--STATS SECTION-->
-    <!--*************-->
-    <div class="stats-container">
-        <div class="stats">
-            <h2>Stats:</h2>
-        </div>
-        <div class="games-played">
-            <p class="label">Games Played:</p>
-            <p class="value"></p>
-        </div>
-        <div class="attempts">
-            <p class="label">Attempts:</p>
-            <p class="value"></p>
-        </div>
-        <div class="accuracy">
-            <p class="label">Accuracy:</p>
-            <p class="value"></p>
-        </div>
-        <div class="reset">
-            <button class="resetBtn">Reset Game</button>
-        </div>
-    </div>
-    <!--End of Stats section-->
+    <!--header section-->
+    <header>
+        <img src="images/mklogo.png">
+        <h3><span><a href="about.html">About</a></span><span><a href="#">Settings</a></span></h3>
+        <h1>Mortal Match</h1>
+    </header>
+    <!--end of header section-->
 
-    <!--*****************-->
-    <!--GAME AREA SECTION-->
-    <!--*****************-->
-    <div id="game-area">
-        <div class="card">
-            <div class="back notFlipped">
-                <img src="images/redscales%20.jpg" alt="Back of game card">
+    <div class="game-container">
+
+        <!--stats section-->
+        <div class="stats-container">
+            <div class="stats">
+                <h2>Stats:</h2>
+            </div>
+            <div class="games-played">
+                <p class="label">Games Played:</p>
+                <p class="value"></p>
+            </div>
+            <div class="attempts">
+                <p class="label">Attempts:</p>
+                <p class="value"></p>
+            </div>
+            <div class="accuracy">
+                <p class="label">Accuracy:</p>
+                <p class="value"></p>
+            </div>
+            <div class="reset">
+                <button id="resetBtn">Reset Game</button>
             </div>
         </div>
-        <div class="card">
-            <div class="back notFlipped">
-                <img src="images/redscales%20.jpg" alt="Back of game card">
-            </div>
-        </div>
-        <div class="card">
-            <div class="back notFlipped">
-                <img src="images/redscales%20.jpg" alt="Back of game card">
-            </div>
-        </div>
-        <div class="card">
-            <div class="back notFlipped">
-                <img src="images/redscales%20.jpg" alt="Back of game card">
-            </div>
-        </div>
-        <div class="card">
-            <div class="back notFlipped">
-                <img src="images/redscales%20.jpg" alt="Back of game card">
-            </div>
-        </div>
-        <div class="card">
-            <div class="back notFlipped">
-                <img src="images/redscales%20.jpg" alt="Back of game card">
-            </div>
-        </div>
-        <div class="card">
-            <div class="back notFlipped">
-                <img src="images/redscales%20.jpg" alt="Back of game card">
-            </div>
-        </div>
-        <div class="card">
-            <div class="back notFlipped">
-                <img src="images/redscales%20.jpg" alt="Back of game card">
-            </div>
-        </div>
-        <div class="card">
-            <div class="back notFlipped">
-                <img src="images/redscales%20.jpg" alt="Back of game card">
-            </div>
-        </div>
-        <div class="card">
-            <div class="back notFlipped">
-                <img src="images/redscales%20.jpg" alt="Back of game card">
-            </div>
-        </div>
-        <div class="card">
-            <div class="back notFlipped">
-                <img src="images/redscales%20.jpg" alt="Back of game card">
-            </div>
-        </div>
-        <div class="card">
-            <div class="back notFlipped">
-                <img src="images/redscales%20.jpg" alt="Back of game card">
-            </div>
-        </div>
-        <div class="card">
-            <div class="back notFlipped">
-                <img src="images/redscales%20.jpg" alt="Back of game card">
-            </div>
-        </div>
-        <div class="card">
-            <div class="back notFlipped">
-                <img src="images/redscales%20.jpg" alt="Back of game card">
-            </div>
-        </div>
-        <div class="card">
-            <div class="back notFlipped">
-                <img src="images/redscales%20.jpg" alt="Back of game card">
-            </div>
-        </div>
-        <div class="card">
-            <div class="back notFlipped">
-                <img src="images/redscales%20.jpg" alt="Back of game card">
-            </div>
-        </div>
-        <div class="card">
-            <div class="back notFlipped">
-                <img src="images/redscales%20.jpg" alt="Back of game card">
-            </div>
-        </div>
-        <div class="card">
-            <div class="back notFlipped">
-                <img src="images/redscales%20.jpg" alt="Back of game card">
-            </div>
-        </div>
-        <div class="fatality">Fatality!</div>
+        <!--End of Stats section-->
+
+        <!--game-area section    -->
+        <div id="game-area"></div>
+        <!--end of game area section-->
+
     </div>
-    <!--End of game area section-->
-</div>
+
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js" type="text/javascript"></script>
+    <script src="match.js" type="text/javascript"></script>
 </body>
 </html>
