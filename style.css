@@ -108,13 +108,19 @@ header h1, h2, h3 {
 
 #game-area {
     position: relative;
-    display: inline-block;
+
     float: right;
     width: 1000px;
     height: 700px;
     text-align: center;
     padding: 15px;
     box-sizing: border-box;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+
 }
 
 .fatality {
@@ -152,10 +158,16 @@ header h1, h2, h3 {
 /*}*/
 
 .card-container {
-    width: 120px;
+
+    width: 13%;
     height: 180px;
+    margin: 0 1%;
     position: relative;
     perspective: 800px;
+
+    /*flex-shrink: 1;*/
+    /*align-items: center;*/
+
 }
 
 .card {

@@ -2,7 +2,7 @@
 
 var first_card_clicked = null,
     second_card_clicked = null,
-    total_possible_matches = 2,
+    total_possible_matches = 8,
     match_counter = 0,
     canClick = true,
     attempts = 0,
@@ -111,7 +111,7 @@ function checkForMatch() {
             second_card_clicked.removeClass('flipped');
             canClick = true;
             resetCards();
-        }, 2000);
+        }, 1000);
     }
 }
 
