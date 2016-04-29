@@ -1,7 +1,7 @@
 
 @font-face {
     font-family: 'mortalkombat';
-    src: url('images/mk2.ttf');
+    src: url('fonts/mk2.ttf');
 }
 
 
@@ -133,25 +133,6 @@ header h1, h2, h3 {
     display: none;
 }
 
-/*.card {*/
-    /*width: 120px;*/
-    /*height: 180px;*/
-    /*display: inline-block;*/
-    /*position: relative;*/
-    /*background-color: transparent;*/
-    /*margin: 0 10px 10px;*/
-    /*border-radius: 20px;*/
-/*}*/
-
-/*.card img {*/
-    /*position: absolute;*/
-    /*top: 0;*/
-    /*left: 0;*/
-    /*height: 100%;*/
-    /*width: 100%;*/
-    /*border-radius: 20px;*/
-    /*border: 7px solid #000;*/
-/*}*/
 
 /*.back {*/
     /*cursor: pointer;*/
@@ -207,31 +188,31 @@ header h1, h2, h3 {
 /*ABOUT PAGE*/
 /*********************************/
 
-#aboutGame {
-    max-width: 1000px;
-    margin: 0 auto;
-    text-align: center;
-    position: relative;
-    background: rgba(0,0,0,0.6);
-    border-radius: 15px;
-    top: 70px;
-    padding: 20px;
-}
+/*#aboutGame {*/
+    /*max-width: 1000px;*/
+    /*margin: 0 auto;*/
+    /*text-align: center;*/
+    /*position: relative;*/
+    /*background: rgba(0,0,0,0.6);*/
+    /*border-radius: 15px;*/
+    /*top: 70px;*/
+    /*padding: 20px;*/
+/*}*/
 
-#aboutGame h1 {
-    margin-top: 0;
-}
+/*#aboutGame h1 {*/
+    /*margin-top: 0;*/
+/*}*/
 
-#aboutGame img {
-    height: 200px;
-    width: auto;
-    border-radius: 50%;
-}
+/*#aboutGame img {*/
+    /*height: 200px;*/
+    /*width: auto;*/
+    /*border-radius: 50%;*/
+/*}*/
 
-#aboutGame p>a {
-    text-decoration: none;
-    color: #fbd31e;
-}
+/*#aboutGame p>a {*/
+    /*text-decoration: none;*/
+    /*color: #fbd31e;*/
+/*}*/
 
 
 

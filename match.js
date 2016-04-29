@@ -8,7 +8,7 @@ var first_card_clicked = null,
     attempts = 0,
     accuracy = 0,
     games_played = 0,
-    $game_area = $('#game-area'),
+    $game_area = $('.game-area'),
     images = ['katana', 'kato', 'luekang', 'reptile', 'scorpion', 'shangtsung', 'sonja', 'subzero', 'jax'];
 
 
@@ -142,7 +142,6 @@ $(document).ready(function(){
         createGame();
         resetStats();
         displayStats();
-        $('.card').removeClass('flipped');
     });
 
 });
