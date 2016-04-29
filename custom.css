@@ -84,10 +84,10 @@ body {
 
 .head-container .reset #resetBtn {
     position: relative;
-    top: 23%;
+    top: 35%;
     display: inline-block;
     padding: .5em .9em;
-    font-size: 1.2em;
+    font-size: 1em;
     cursor: pointer;
     text-align: center;
     text-decoration: none;
@@ -99,9 +99,9 @@ body {
     box-shadow: 0 .3em #888;
 }
 
-.head-container .reset #resetBtn:hover {
-    background-color: #c23c24;
-}
+/*.head-container .reset #resetBtn:hover {*/
+    /*background-color: #c23c24;*/
+/*}*/
 
 .head-container .reset #resetBtn:active {
     background-color: #c23c24;
