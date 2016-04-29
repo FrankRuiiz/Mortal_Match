@@ -90,7 +90,7 @@ function checkForMatch() {
             second_card_clicked.removeClass('flipped');
             resetCards();
             canClick = true;
-        }, 2000);
+        }, 1000);
     }
 }
 
