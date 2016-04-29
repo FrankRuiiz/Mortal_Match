@@ -25,25 +25,6 @@ function createGame() {
 }
 
 function renderCards(value, index) {
-    // var $cardDiv = $('<div>', {
-    //     class: 'card'
-    // });
-    // var $frontDiv = $('<div>', {
-    //    class: 'front'
-    // }).appendTo($cardDiv);
-    // var $frontImg = $('<img>', {
-    //     src: 'images/' + value + '.jpg',
-    //     alt: value
-    // }).appendTo($frontDiv);
-    // var $backDiv = $('<div>', {
-    //    class: 'back'
-    // }).appendTo($cardDiv);
-    // var $backImg = $('<img>', {
-    //    src: 'images/card-back.jpg'
-    // }).appendTo($backDiv);
-    //
-    // $cardDiv.appendTo($game_area);
-
     var $cardContainer = $('<div>', {
        class: 'card-container'
     });
