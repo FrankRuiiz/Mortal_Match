@@ -2,7 +2,7 @@
 
 var first_card_clicked = null,
     second_card_clicked = null,
-    total_possible_matches = 8,
+    total_possible_matches = 9,
     match_counter = 0,
     canClick = true,
     attempts = 0,
@@ -39,7 +39,7 @@ function renderCards(value, index) {
     //    class: 'back'
     // }).appendTo($cardDiv);
     // var $backImg = $('<img>', {
-    //    src: 'images/redscales.jpg'
+    //    src: 'images/card-back.jpg'
     // }).appendTo($backDiv);
     //
     // $cardDiv.appendTo($game_area);
@@ -48,11 +48,7 @@ function renderCards(value, index) {
        class: 'card-container'
     });
     var $card = $('<div>', {
-       class: 'card',
-       click: function(e) {
-           e.preventDefault();
-           $(this).addClass('flipped');
-       }
+       class: 'card'
     }).appendTo($cardContainer);
     var $cardBack = $('<img>', {
         class: 'back',
@@ -60,7 +56,7 @@ function renderCards(value, index) {
     }).appendTo($card);
     var $cardFront = $('<img>', {
         class: 'front',
-        src: 'images/redscales.jpg'
+        src: 'images/card-back.jpg'
     }).appendTo($card);
 
     $cardContainer.appendTo($game_area);
@@ -86,6 +82,8 @@ function card_clicked($element) {
         return;
     }
 
+    $element.addClass('flipped');
+
     if( first_card_clicked === null ) {
         first_card_clicked = $element;
     }
@@ -109,9 +107,9 @@ function checkForMatch() {
         setTimeout(function() {
             first_card_clicked.removeClass('flipped');
             second_card_clicked.removeClass('flipped');
-            canClick = true;
             resetCards();
-        }, 1000);
+            canClick = true;
+        }, 2000);
     }
 }
 

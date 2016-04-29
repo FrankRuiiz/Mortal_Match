@@ -193,6 +193,8 @@ header h1, h2, h3 {
 
 .card .back {
     transform: rotateY(180deg);
+    border: 10px solid #000;
+    box-sizing: border-box;
 }
 
 .card.flipped {
