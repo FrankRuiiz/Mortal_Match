@@ -7,7 +7,7 @@ var first_card_clicked = null,
     accuracy = 0,
     games_played = 0,
     $game_area = $('.game-area'),
-    images = ['katana', 'kato', 'luekang', 'reptile', 'scorpion', 'shangtsung', 'sonja', 'subzero', 'jax'];
+    images = ['katana', 'kato', 'liuekang', 'reptile', 'scorpion', 'shangtsung', 'sonja', 'subzero', 'jax'];
 
 
 // object will hold game sounds
