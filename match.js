@@ -13,8 +13,20 @@ var first_card_clicked = null,
 // object will hold game sounds
 var sounds = {
     theme_song: new Audio('audio/theme.mp3'),
-    jax: new Audio('audio/jax.mp3')
+    jax: new Audio('audio/jax.mp3'),
+    kano: new Audio('audio/kano'),
+    kitana: new Audio('audio/kitana'),
+    liukang: new Audio('audio/liukang'),
+    reptile: new Audio('audio/reptile'),
+    scorpion: new Audio('audio/scorpion'),
+    shangtsung: new Audio('audio/shangtsung'),
+    sonya: new Audio('audio/sonya'),
+    subzero: new Audio('audio/subzero')
 };
+
+function matchSound(characterSrc) {
+    
+}
 
 
 // Create game area
@@ -91,7 +103,8 @@ function card_clicked($element) {
 
 function checkForMatch() {
     if (first_card_clicked.find('.back').attr('src') === second_card_clicked.find('.back').attr('src')) {
-        sounds.jax.play();
+        var matchedSrc = first_card_clicked.find('.back').attr('src');
+        matchSound(matchedSrc);
         match_counter++;
         checkGameWin();
         resetCards();
