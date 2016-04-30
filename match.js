@@ -12,6 +12,11 @@ var first_card_clicked = null,
     images = ['katana', 'kato', 'luekang', 'reptile', 'scorpion', 'shangtsung', 'sonja', 'subzero', 'jax'];
 
 
+var sounds = {
+    game_sound: new Audio
+}
+
+
 // Create game area
 
 function createGame() {
@@ -37,7 +42,7 @@ function renderCards(value, index) {
     }).appendTo($card);
     var $cardFront = $('<img>', {
         class: 'front',
-        src: 'images/card-back.jpg'
+        src: 'images/mkcardback.jpg'
     }).appendTo($card);
 
     $cardContainer.appendTo($game_area);
@@ -58,6 +63,7 @@ function randomize(arr) {
 
 
 // Game flow functionality
+
 function card_clicked($element) {
     if(!canClick) {
         return;
@@ -107,7 +113,8 @@ function resetCards() {
 
 
 
-// Stats Section Functionality
+// Stats Functionality
+
 function calculateAverage() {
     accuracy = Math.round((match_counter / attempts) * 100);
 }
