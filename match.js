@@ -11,18 +11,18 @@ var first_card_clicked = null,
     accuracy = 0,
     games_played = 0,
     $game_area = $('.game-area'),
-    images = ['kitana', 'kano', 'liuekang', 'reptile', 'scorpion', 'shangtsung', 'sonya', 'subzero', 'jax'];
+    images = ['nightwolf', 'kano', 'liuekang', 'reptile', 'scorpion', 'shangtsung', 'sonya', 'subzero', 'jax'];
 
 
 /**
  * sounds - object holding game sounds
- * @type {{theme_song: Audio, jax: Audio, kano: Audio, kitana: Audio, liuekang: Audio, reptile: Audio, scorpion: Audio, shangtsung: Audio, sonya: Audio, subzero: Audio}}
+ * @type {{theme_song: Audio, jax: Audio, kano: Audio, nightwolf: Audio, liuekang: Audio, reptile: Audio, scorpion: Audio, shangtsung: Audio, sonya: Audio, subzero: Audio}}
  */
 var sounds = {
     theme_song: new Audio('audio/theme.mp3'),
     jax: new Audio('audio/jax.mp3'),
     kano: new Audio('audio/kano.mp3'),
-    kitana: new Audio('audio/kitana.mp3'),
+    nightwolf: new Audio('audio/nightwolf.mp3'),
     liuekang: new Audio('audio/liukang.mp3'),
     reptile: new Audio('audio/reptile.mp3'),
     scorpion: new Audio('audio/scorpion.mp3'),
@@ -45,8 +45,8 @@ function playSound(soundParam) {
         case 'kano':
             sounds.kano.play();
             break;
-        case 'kitana':
-            sounds.kitana.play();
+        case 'nightwolf':
+            sounds.nightwolf.play();
             break;
         case 'liuekang':
             sounds.liuekang.play();
@@ -152,7 +152,6 @@ function card_clicked($element) {
         console.log('second card set');
         second_card_clicked = $element;
         attempts++;
-        calculateAverage();
         displayStats();
         checkForMatch();
     }
@@ -166,6 +165,7 @@ function checkForMatch() {
         var matchedSrc = first_card_clicked.find('.back').attr('src');
         playSound(matchedSrc);
         match_counter++;
+        calculateAverage();
         checkGameWin();
         resetCards();
     }
@@ -177,6 +177,7 @@ function checkForMatch() {
             resetCards();
             canClick = true;
         }, 1000);
+        calculateAverage();
     }
 }
 
