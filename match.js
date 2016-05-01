@@ -1,3 +1,7 @@
+/**
+ * global variables
+ * @type {null}
+ */
 var first_card_clicked = null,
     second_card_clicked = null,
     total_possible_matches = 9,
@@ -7,30 +11,69 @@ var first_card_clicked = null,
     accuracy = 0,
     games_played = 0,
     $game_area = $('.game-area'),
-    images = ['katana', 'kato', 'liuekang', 'reptile', 'scorpion', 'shangtsung', 'sonja', 'subzero', 'jax'];
+    images = ['kitana', 'kano', 'liuekang', 'reptile', 'scorpion', 'shangtsung', 'sonya', 'subzero', 'jax'];
 
 
-// object will hold game sounds
+/**
+ * sounds - object holding game sounds
+ * @type {{theme_song: Audio, jax: Audio, kano: Audio, kitana: Audio, liuekang: Audio, reptile: Audio, scorpion: Audio, shangtsung: Audio, sonya: Audio, subzero: Audio}}
+ */
 var sounds = {
     theme_song: new Audio('audio/theme.mp3'),
     jax: new Audio('audio/jax.mp3'),
-    kano: new Audio('audio/kano'),
-    kitana: new Audio('audio/kitana'),
-    liukang: new Audio('audio/liukang'),
-    reptile: new Audio('audio/reptile'),
-    scorpion: new Audio('audio/scorpion'),
-    shangtsung: new Audio('audio/shangtsung'),
-    sonya: new Audio('audio/sonya'),
-    subzero: new Audio('audio/subzero')
+    kano: new Audio('audio/kano.mp3'),
+    kitana: new Audio('audio/kitana.mp3'),
+    liuekang: new Audio('audio/liukang.mp3'),
+    reptile: new Audio('audio/reptile.mp3'),
+    scorpion: new Audio('audio/scorpion.mp3'),
+    shangtsung: new Audio('audio/shangtsung.mp3'),
+    sonya: new Audio('audio/sonya.mp3'),
+    subzero: new Audio('audio/subzero.mp3')
 };
 
-function matchSound(characterSrc) {
-    
+/**
+ * function playSound - (soundParam) plays a specific sound, depending on the soundParam passed in
+ * @param soundParam
+ */
+function playSound(soundParam) {
+    var parsedParam = soundParam.slice(7).split('.');
+    console.log(parsedParam);
+    switch (parsedParam[0]) {
+        case 'jax':
+            sounds.jax.play();
+            break;
+        case 'kano':
+            sounds.kano.play();
+            break;
+        case 'kitana':
+            sounds.kitana.play();
+            break;
+        case 'liuekang':
+            sounds.liuekang.play();
+            break;
+        case 'reptile':
+            sounds.reptile.play();
+            break;
+        case 'scorpion':
+            sounds.scorpion.play();
+            break;
+        case 'shangtsung':
+            sounds.shangtsung.play();
+            break;
+        case 'sonya':
+            sounds.sonya.play();
+            break;
+        case 'subzero':
+            sounds.subzero.play();
+            break;
+    }
 }
 
+/** Game Creation **/
 
-// Create game area
-
+/**
+ * function createGame - Builds game_images array, sends it to be randomized, and then calls render cards for each item in the array
+ */
 function createGame() {
     $game_area.empty();
     var game_images = [].concat(images).concat(images);
@@ -41,6 +84,11 @@ function createGame() {
     game_images.forEach(renderCards); // creates elements for each card and appends them to the DOM
 }
 
+/**
+ * function renderCards(value, index) - DOM creation for the game cards, uses value to set the image src attribute, and index as an id for later game flow/card comparison
+ * @param value
+ * @param index
+ */
 function renderCards(value, index) {
     var $cardContainer = $('<div>', {
         class: 'card-container'
@@ -61,6 +109,11 @@ function renderCards(value, index) {
     $cardContainer.appendTo($game_area);
 }
 
+/**
+ * function randomize(arr) - Fisher Yates alg. used to make the image_array random
+ * @param arr
+ * @returns {*}
+ */
 function randomize(arr) {
     var counter = arr.length;
     while (counter > 0) {
@@ -74,8 +127,12 @@ function randomize(arr) {
 }
 
 
-// Game flow functionality
+/** Game Flow **/
 
+/**
+ * function card_clicked($element) -  Primary function is to set the first_card_clicked and second_card_clicked variables to $element (jQuery element)
+ * @param $element
+ */
 function card_clicked($element) {
     console.log($element.find('.front').attr('id'));
 
@@ -101,10 +158,13 @@ function card_clicked($element) {
     }
 }
 
+/**
+ * function checkForMatch() - compares first_card_clicked and second_card_clicked for a match
+ */
 function checkForMatch() {
     if (first_card_clicked.find('.back').attr('src') === second_card_clicked.find('.back').attr('src')) {
         var matchedSrc = first_card_clicked.find('.back').attr('src');
-        matchSound(matchedSrc);
+        playSound(matchedSrc);
         match_counter++;
         checkGameWin();
         resetCards();
@@ -120,30 +180,45 @@ function checkForMatch() {
     }
 }
 
+/**
+ * function checkGameWin - checks to see if the match_counter is equal to the total_possible_matches
+ */
 function checkGameWin() {
     if (match_counter === total_possible_matches) {
         alert("you win!");  //TODO: Display win condition message
     }
 }
 
+/**
+ * function resetCards - resets cards back to null
+ */
 function resetCards() {
     first_card_clicked = null;
     second_card_clicked = null;
 }
 
 
-// Stats Functionality
+/** Stats Functionality **/
 
+/**
+ * function calculateAverage - calculates average 
+ */
 function calculateAverage() {
     accuracy = Math.round((match_counter / attempts) * 100);
 }
 
+/**
+ * function displayStats - updates the DOM statistics elements 
+ */
 function displayStats() {
     $('.games-played .value').html(games_played);
     $('.attempts .value').html(attempts);
     $('.accuracy .value').html(accuracy + ' %');
 }
 
+/**
+ * function resetStats - sets stats section back to initial value 0
+ */
 function resetStats() {
     accuracy = 0;
     match_counter = 0;
@@ -151,6 +226,7 @@ function resetStats() {
     displayStats();
 }
 
+/** Document Ready **/
 
 $(document).ready(function () {
     displayStats();
