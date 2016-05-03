@@ -38,37 +38,7 @@ var sounds = {
  * @param soundParam
  */
 function playSound(soundParam) {
-    var parsedParam = soundParam.slice(7).split('.');
-    console.log(parsedParam);
-    switch (parsedParam[0]) {
-        case 'jax':
-            sounds.jax.play();
-            break;
-        case 'kano':
-            sounds.kano.play();
-            break;
-        case 'nightwolf':
-            sounds.nightwolf.play();
-            break;
-        case 'liuekang':
-            sounds.liuekang.play();
-            break;
-        case 'reptile':
-            sounds.reptile.play();
-            break;
-        case 'scorpion':
-            sounds.scorpion.play();
-            break;
-        case 'shangtsung':
-            sounds.shangtsung.play();
-            break;
-        case 'sonya':
-            sounds.sonya.play();
-            break;
-        case 'subzero':
-            sounds.subzero.play();
-            break;
-    }
+        sounds[soundParam].play();
 }
 
 /** Game Creation **/
@@ -165,8 +135,9 @@ function card_clicked($element) {
 function checkForMatch() {
     if (first_card_clicked.find('.back').attr('src') === second_card_clicked.find('.back').attr('src')) {
         var matchedSrc = first_card_clicked.find('.back').attr('src');
-
-        playSound(matchedSrc);
+        matchedSrc = matchedSrc.slice(7).split('.');
+        console.log(matchedSrc);
+        playSound(matchedSrc[0]);
         match_counter++;
         calculateAverage();
         checkGameWin();
