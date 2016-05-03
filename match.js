@@ -4,7 +4,7 @@
  */
 var first_card_clicked = null,
     second_card_clicked = null,
-    total_possible_matches = 9,
+    total_possible_matches = 2,
     win = false,
     match_counter = 0,
     canClick = true,
@@ -12,8 +12,8 @@ var first_card_clicked = null,
     accuracy = 0,
     games_played = 0,
     $game_area = $('.game-area'),
-    images = ['nightwolf', 'kano', 'liuekang', 'reptile', 'scorpion', 'shangtsung', 'sonya', 'subzero', 'jax'];
-   //images = ['nightwolf', 'kano'];
+    //images = ['nightwolf', 'kano', 'liuekang', 'reptile', 'scorpion', 'shangtsung', 'sonya', 'subzero', 'jax'];
+   images = ['nightwolf', 'kano'];
 
 
 /**
@@ -30,7 +30,8 @@ var sounds = {
     scorpion: new Audio('audio/scorpion.mp3'),
     shangtsung: new Audio('audio/shangtsung.mp3'),
     sonya: new Audio('audio/sonya.mp3'),
-    subzero: new Audio('audio/subzero.mp3')
+    subzero: new Audio('audio/subzero.mp3'),
+    win: new Audio('audio/excellent.wav')
 };
 
 /**
@@ -174,7 +175,10 @@ function winMessage(win) {
     if(win) {
         $h1.text('Excellent!');
         $div.append($h1);
-        $div.appendTo($game_area).fadeIn();
+        setTimeout(function() {
+            $div.appendTo($game_area).fadeIn();
+            playSound('win');
+        }, 1500);
     }
     else{  // TODO: requres an added feature where the player has a limited amount of  tries or life
         $h1.text('Fatality!');
