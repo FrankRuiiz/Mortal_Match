@@ -4,7 +4,7 @@
  */
 var first_card_clicked = null,
     second_card_clicked = null,
-    total_possible_matches = 2,
+    total_possible_matches = 9,
     win = false,
     match_counter = 0,
     canClick = true,
@@ -12,8 +12,8 @@ var first_card_clicked = null,
     accuracy = 0,
     games_played = 0,
     $game_area = $('.game-area'),
-    //images = ['nightwolf', 'kano', 'liuekang', 'reptile', 'scorpion', 'shangtsung', 'sonya', 'subzero', 'jax'];
-   images = ['nightwolf', 'kano'];
+    images = ['nightwolf', 'kano', 'liuekang', 'reptile', 'scorpion', 'shangtsung', 'sonya', 'subzero', 'jax'];
+    //images = ['nightwolf', 'kano'];
 
 
 /**
@@ -109,8 +109,8 @@ function randomize(arr) {
 function card_clicked($element) {
     console.log($element.find('.front').attr('id'));
 
-    // sounds.theme_song.play();
-    // sounds.theme_song.volume = 0.15;
+    //sounds.theme_song.play();
+    sounds.theme_song.volume = 0.15;
 
     if (!canClick) {
         return;
@@ -122,7 +122,6 @@ function card_clicked($element) {
         first_card_clicked = $element;
     }
     else if (first_card_clicked.find('.front').attr('id') != $element.find('.front').attr('id')){
-        console.log('second card set');
         second_card_clicked = $element;
         attempts++;
         displayStats();
@@ -135,9 +134,10 @@ function card_clicked($element) {
  */
 function checkForMatch() {
     if (first_card_clicked.find('.back').attr('src') === second_card_clicked.find('.back').attr('src')) {
+        first_card_clicked.add(second_card_clicked).fadeOut('slow');
         var matchedSrc = first_card_clicked.find('.back').attr('src');
         matchedSrc = matchedSrc.slice(7).split('.');
-        console.log(matchedSrc);
+        console.log('matched srd',matchedSrc);
         playSound(matchedSrc[0]);
         match_counter++;
         calculateAverage();
@@ -172,6 +172,7 @@ function winMessage(win) {
        class: 'win-lose'
     }).hide();
     var $h1 = $('<h1>');
+
     if(win) {
         $h1.text('Excellent!');
         $div.append($h1);
@@ -180,11 +181,11 @@ function winMessage(win) {
             playSound('win');
         }, 1500);
     }
-    else{  // TODO: requres an added feature where the player has a limited amount of  tries or life
-        $h1.text('Fatality!');
-        $div.append($h1);
-        $div.appendTo($game_area);
-    }
+    // else{  // TODO: requres an added feature where the player has a limited amount of  tries or life
+    //     $h1.text('Fatality!');
+    //     $div.append($h1);
+    //     $div.appendTo($game_area);
+    // }
 }
 
 /**
