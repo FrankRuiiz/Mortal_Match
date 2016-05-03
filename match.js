@@ -5,6 +5,7 @@
 var first_card_clicked = null,
     second_card_clicked = null,
     total_possible_matches = 9,
+    win = false,
     match_counter = 0,
     canClick = true,
     attempts = 0,
@@ -28,7 +29,8 @@ var sounds = {
     scorpion: new Audio('audio/scorpion.mp3'),
     shangtsung: new Audio('audio/shangtsung.mp3'),
     sonya: new Audio('audio/sonya.mp3'),
-    subzero: new Audio('audio/subzero.mp3')
+    subzero: new Audio('audio/subzero.mp3'),
+    win: new Audio('audio/excellent.wav')
 };
 
 /**
@@ -36,37 +38,7 @@ var sounds = {
  * @param soundParam
  */
 function playSound(soundParam) {
-    var parsedParam = soundParam.slice(7).split('.');
-    console.log(parsedParam);
-    switch (parsedParam[0]) {
-        case 'jax':
-            sounds.jax.play();
-            break;
-        case 'kano':
-            sounds.kano.play();
-            break;
-        case 'nightwolf':
-            sounds.nightwolf.play();
-            break;
-        case 'liuekang':
-            sounds.liuekang.play();
-            break;
-        case 'reptile':
-            sounds.reptile.play();
-            break;
-        case 'scorpion':
-            sounds.scorpion.play();
-            break;
-        case 'shangtsung':
-            sounds.shangtsung.play();
-            break;
-        case 'sonya':
-            sounds.sonya.play();
-            break;
-        case 'subzero':
-            sounds.subzero.play();
-            break;
-    }
+        sounds[soundParam].play();
 }
 
 /** Game Creation **/
@@ -149,7 +121,6 @@ function card_clicked($element) {
         first_card_clicked = $element;
     }
     else if (first_card_clicked.find('.front').attr('id') != $element.find('.front').attr('id')){
-        console.log('second card set');
         second_card_clicked = $element;
         attempts++;
         displayStats();
@@ -162,8 +133,11 @@ function card_clicked($element) {
  */
 function checkForMatch() {
     if (first_card_clicked.find('.back').attr('src') === second_card_clicked.find('.back').attr('src')) {
+        first_card_clicked.add(second_card_clicked).fadeOut('slow');
         var matchedSrc = first_card_clicked.find('.back').attr('src');
-        playSound(matchedSrc);
+        matchedSrc = matchedSrc.slice(7).split('.');
+        console.log('matched src',matchedSrc);
+        playSound(matchedSrc[0]);
         match_counter++;
         calculateAverage();
         checkGameWin();
@@ -186,8 +160,31 @@ function checkForMatch() {
  */
 function checkGameWin() {
     if (match_counter === total_possible_matches) {
-        alert("you win!");  //TODO: Display win condition message
+        win = true;
+        winMessage(win);
     }
+}
+
+function winMessage(win) {
+    $game_area.empty();
+    var $div = $('<div>', {
+       class: 'win-lose'
+    }).hide();
+    var $h1 = $('<h1>');
+
+    if(win) {
+        $h1.text('Excellent!');
+        $div.append($h1);
+        setTimeout(function() {
+            $div.appendTo($game_area).fadeIn();
+            playSound('win');
+        }, 1500);
+    }
+    // else{  // TODO: requres an added feature where the player has a limited amount of  tries or life
+    //     $h1.text('Fatality!');
+    //     $div.append($h1);
+    //     $div.appendTo($game_area);
+    // }
 }
 
 /**
