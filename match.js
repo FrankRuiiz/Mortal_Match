@@ -13,7 +13,6 @@ var first_card_clicked = null,
     games_played = 0,
     $game_area = $('.game-area'),
     images = ['nightwolf', 'kano', 'liuekang', 'reptile', 'scorpion', 'shangtsung', 'sonya', 'subzero', 'jax'];
-    //images = ['nightwolf', 'kano'];
 
 
 /**
@@ -109,7 +108,7 @@ function randomize(arr) {
 function card_clicked($element) {
     console.log($element.find('.front').attr('id'));
 
-    //sounds.theme_song.play();
+    sounds.theme_song.play();
     sounds.theme_song.volume = 0.15;
 
     if (!canClick) {
@@ -137,7 +136,7 @@ function checkForMatch() {
         first_card_clicked.add(second_card_clicked).fadeOut('slow');
         var matchedSrc = first_card_clicked.find('.back').attr('src');
         matchedSrc = matchedSrc.slice(7).split('.');
-        console.log('matched srd',matchedSrc);
+        console.log('matched src',matchedSrc);
         playSound(matchedSrc[0]);
         match_counter++;
         calculateAverage();
