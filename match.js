@@ -61,7 +61,7 @@ function createGame() {
  * @param value
  * @param index
  */
-function renderCards(value, index, array) {
+function renderCards(value, index) {
 
     var $cardContainer = $('<div>', {
         class: 'card-container'
@@ -80,18 +80,11 @@ function renderCards(value, index, array) {
     }).appendTo($card);
     $cardContainer.appendTo($game_area);
 
-    // setInterval(function() {
-    //     $cardContainer.each(function() {
-    //         $(this).appendTo($game_area).fadeIn('slow');
-    //     });
-    //
-    // }, 1000);
     $.each($('.card-container'), function(i, card){
-        card = $(card);
+        var card = $(card);
         card.hide();
         setTimeout(function(){
             card.fadeIn('slow');
-            // }, 450);
         },200 + ( i * 200 ));
     });
 

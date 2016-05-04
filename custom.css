@@ -161,18 +161,19 @@ background-color: #f7a718;
     text-align: center;
     box-sizing: border-box;
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex-direction: row-reverse;
+    flex-wrap: wrap-reverse;
     justify-content: center;
+    align-items: flex-start;
 }
 
 .card-container {
-    height: auto;
-    max-height: 240px;
+    height: 31%;
     width: 13%;
     margin: 1%;
-    position: relative;
+    #position: relative;
     perspective: 800px;
+    align-self: baseline;
 }
 
 .card {
