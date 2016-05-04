@@ -13,7 +13,7 @@ var first_card_clicked = null,
     games_played = 0,
     $game_area = $('.game-area'),
     images = ['nightwolf', 'kano', 'liuekang', 'reptile', 'scorpion', 'shangtsung', 'sonya', 'subzero', 'jax'];
-
+    //images = ['nightwolf', 'kano'];
 
 /**
  * sounds - object holding game sounds
@@ -61,7 +61,8 @@ function createGame() {
  * @param value
  * @param index
  */
-function renderCards(value, index) {
+function renderCards(value, index, array) {
+
     var $cardContainer = $('<div>', {
         class: 'card-container'
     });
@@ -77,8 +78,23 @@ function renderCards(value, index) {
         src: 'images/mkcardback.jpg',
         id: index
     }).appendTo($card);
-
     $cardContainer.appendTo($game_area);
+
+    // setInterval(function() {
+    //     $cardContainer.each(function() {
+    //         $(this).appendTo($game_area).fadeIn('slow');
+    //     });
+    //
+    // }, 1000);
+    $.each($('.card-container'), function(i, card){
+        card = $(card);
+        card.hide();
+        setTimeout(function(){
+            card.fadeIn('slow');
+            // }, 450);
+        },200 + ( i * 200 ));
+    });
+
 }
 
 /**
@@ -161,7 +177,9 @@ function checkForMatch() {
 function checkGameWin() {
     if (match_counter === total_possible_matches) {
         win = true;
+        setTimeout(function() {
         winMessage(win);
+        }, 400);
     }
 }
 
@@ -178,7 +196,7 @@ function winMessage(win) {
         setTimeout(function() {
             $div.appendTo($game_area).fadeIn();
             playSound('win');
-        }, 1500);
+        }, 1200);
     }
     // else{  // TODO: requres an added feature where the player has a limited amount of  tries or life
     //     $h1.text('Fatality!');
