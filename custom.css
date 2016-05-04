@@ -168,6 +168,7 @@ background-color: #f7a718;
 
 .card-container {
     height: auto;
+    max-height: 240px;
     width: 13%;
     margin: 1%;
     position: relative;
