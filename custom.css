@@ -164,7 +164,6 @@ background-color: #f7a718;
     flex-direction: row-reverse;
     flex-wrap: wrap-reverse;
     justify-content: center;
-    align-items: flex-start;
 }
 
 .card-container {

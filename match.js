@@ -222,7 +222,7 @@ function calculateAverage() {
 function displayStats() {
     $('.games-played .value').html(games_played);
     $('.attempts .value').html(attempts);
-    $('.accuracy .value').html(accuracy + ' %');
+    $('.accuracy .value').html(accuracy + '%');
 }
 
 /**
