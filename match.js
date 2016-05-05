@@ -13,14 +13,13 @@ var first_card_clicked = null,
     games_played = 0,
     $game_area = $('.game-area'),
     images = ['nightwolf', 'kano', 'liuekang', 'reptile', 'scorpion', 'shangtsung', 'sonya', 'subzero', 'jax'];
-    //images = ['nightwolf', 'kano'];
+    //images = ['nightwolf', 'kano'];  // Test Array
 
 /**
  * sounds - object holding game sounds
  * @type {{theme_song: Audio, jax: Audio, kano: Audio, nightwolf: Audio, liuekang: Audio, reptile: Audio, scorpion: Audio, shangtsung: Audio, sonya: Audio, subzero: Audio}}
  */
 var sounds = {
-    theme_song: new Audio('audio/theme.mp3'),
     jax: new Audio('audio/jax.mp3'),
     kano: new Audio('audio/kano.mp3'),
     nightwolf: new Audio('audio/nightwolf.mp3'),
@@ -30,8 +29,15 @@ var sounds = {
     shangtsung: new Audio('audio/shangtsung.mp3'),
     sonya: new Audio('audio/sonya.mp3'),
     subzero: new Audio('audio/subzero.mp3'),
-    win: new Audio('audio/excellent.wav')
+    win: new Audio('audio/excellent.wav'),
+    bad1:new Audio('audio/bad1.mp3'),
+    bad2:new Audio('audio/bad2.mp3'),
+    bad3:new Audio('audio/bad3.mp3'),
+    bad4:new Audio('audio/bad4.mp3'),
+    bad5:new Audio('audio/laugh.wav')
 };
+
+var theme_music = new Audio('audio/theme.mp3');
 
 /**
  * function playSound - (soundParam) plays a specific sound, depending on the soundParam passed in
@@ -81,10 +87,9 @@ function renderCards(value, index) {
     $cardContainer.appendTo($game_area);
 
     $.each($('.card-container'), function(i, card){
-        var card = $(card);
-        card.hide();
+        var currentCard = $(card).hide();
         setTimeout(function(){
-            card.fadeIn('slow');
+            currentCard.fadeIn('slow');
         },200 + ( i * 200 ));
     });
 
@@ -117,8 +122,8 @@ function randomize(arr) {
 function card_clicked($element) {
     console.log($element.find('.front').attr('id'));
 
-    sounds.theme_song.play();
-    sounds.theme_song.volume = 0.15;
+    theme_music.play();
+    theme_music.volume = 0.15;
 
     if (!canClick) {
         return;
@@ -142,17 +147,19 @@ function card_clicked($element) {
  */
 function checkForMatch() {
     if (first_card_clicked.find('.back').attr('src') === second_card_clicked.find('.back').attr('src')) {
+        match_counter++;
         first_card_clicked.add(second_card_clicked).fadeOut('slow');
         var matchedSrc = first_card_clicked.find('.back').attr('src');
         matchedSrc = matchedSrc.slice(7).split('.');
-        console.log('matched src',matchedSrc);
         playSound(matchedSrc[0]);
-        match_counter++;
         calculateAverage();
         checkGameWin();
         resetCards();
     }
     else {
+        var randomUnmatched = randomize(['bad1', 'bad2', 'bad3', 'bad4', 'bad5']);
+        playSound(randomUnmatched[0]);
+        console.log(randomUnmatched);
         canClick = false;
         setTimeout(function () {
             first_card_clicked.removeClass('flipped');
@@ -169,7 +176,8 @@ function checkForMatch() {
  */
 function checkGameWin() {
     if (match_counter === total_possible_matches) {
-        win = true;
+        win = true; // variable doesn't matter right now since the user currently does not lose
+        stopThemeMusic();
         setTimeout(function() {
         winMessage(win);
         }, 400);
@@ -235,6 +243,11 @@ function resetStats() {
     displayStats();
 }
 
+function stopThemeMusic() {
+    theme_music.pause();
+    theme_music.currentTime = 0;
+}
+
 /** Document Ready **/
 
 $(document).ready(function () {
@@ -246,8 +259,9 @@ $(document).ready(function () {
         card_clicked($(this));
     });
 
-    $('#resetBtn').click(function (e) {
+    $('#resetBtn').on('click', function (e) {
         e.preventDefault();
+        stopThemeMusic();
         games_played++;
         createGame();
         resetStats();
