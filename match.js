@@ -29,7 +29,12 @@ var sounds = {
     shangtsung: new Audio('audio/shangtsung.mp3'),
     sonya: new Audio('audio/sonya.mp3'),
     subzero: new Audio('audio/subzero.mp3'),
-    win: new Audio('audio/excellent.wav')
+    win: new Audio('audio/excellent.wav'),
+    bad1:new Audio('audio/bad1.mp3'),
+    bad2:new Audio('audio/bad2.mp3'),
+    bad3:new Audio('audio/bad3.mp3'),
+    bad4:new Audio('audio/bad4.mp3'),
+    bad5:new Audio('audio/laugh.wav')
 };
 
 var theme_music = new Audio('audio/theme.mp3');
@@ -82,10 +87,9 @@ function renderCards(value, index) {
     $cardContainer.appendTo($game_area);
 
     $.each($('.card-container'), function(i, card){
-        var card = $(card);
-        card.hide();
+        var currentCard = $(card).hide();
         setTimeout(function(){
-            card.fadeIn('slow');
+            currentCard.fadeIn('slow');
         },200 + ( i * 200 ));
     });
 
@@ -143,17 +147,19 @@ function card_clicked($element) {
  */
 function checkForMatch() {
     if (first_card_clicked.find('.back').attr('src') === second_card_clicked.find('.back').attr('src')) {
+        match_counter++;
         first_card_clicked.add(second_card_clicked).fadeOut('slow');
         var matchedSrc = first_card_clicked.find('.back').attr('src');
         matchedSrc = matchedSrc.slice(7).split('.');
-        console.log('matched src',matchedSrc);
         playSound(matchedSrc[0]);
-        match_counter++;
         calculateAverage();
         checkGameWin();
         resetCards();
     }
     else {
+        var randomUnmatched = randomize(['bad1', 'bad2', 'bad3', 'bad4', 'bad5']);
+        playSound(randomUnmatched[0]);
+        console.log(randomUnmatched);
         canClick = false;
         setTimeout(function () {
             first_card_clicked.removeClass('flipped');
@@ -170,11 +176,10 @@ function checkForMatch() {
  */
 function checkGameWin() {
     if (match_counter === total_possible_matches) {
-        win = true;
+        win = true; // variable doesn't matter right now since the user currently does not lose
         stopThemeMusic();
         setTimeout(function() {
         winMessage(win);
-        win = false;
         }, 400);
     }
 }
@@ -239,7 +244,6 @@ function resetStats() {
 }
 
 function stopThemeMusic() {
-    console.log('stop theme meusic');
     theme_music.pause();
     theme_music.currentTime = 0;
 }
