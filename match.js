@@ -13,14 +13,13 @@ var first_card_clicked = null,
     games_played = 0,
     $game_area = $('.game-area'),
     images = ['nightwolf', 'kano', 'liuekang', 'reptile', 'scorpion', 'shangtsung', 'sonya', 'subzero', 'jax'];
-    //images = ['nightwolf', 'kano'];
+    //images = ['nightwolf', 'kano'];  // Test Array
 
 /**
  * sounds - object holding game sounds
  * @type {{theme_song: Audio, jax: Audio, kano: Audio, nightwolf: Audio, liuekang: Audio, reptile: Audio, scorpion: Audio, shangtsung: Audio, sonya: Audio, subzero: Audio}}
  */
 var sounds = {
-    theme_song: new Audio('audio/theme.mp3'),
     jax: new Audio('audio/jax.mp3'),
     kano: new Audio('audio/kano.mp3'),
     nightwolf: new Audio('audio/nightwolf.mp3'),
@@ -32,6 +31,8 @@ var sounds = {
     subzero: new Audio('audio/subzero.mp3'),
     win: new Audio('audio/excellent.wav')
 };
+
+var theme_music = new Audio('audio/theme.mp3');
 
 /**
  * function playSound - (soundParam) plays a specific sound, depending on the soundParam passed in
@@ -117,8 +118,8 @@ function randomize(arr) {
 function card_clicked($element) {
     console.log($element.find('.front').attr('id'));
 
-    sounds.theme_song.play();
-    sounds.theme_song.volume = 0.15;
+    theme_music.play();
+    theme_music.volume = 0.15;
 
     if (!canClick) {
         return;
@@ -170,8 +171,10 @@ function checkForMatch() {
 function checkGameWin() {
     if (match_counter === total_possible_matches) {
         win = true;
+        stopThemeMusic();
         setTimeout(function() {
         winMessage(win);
+        win = false;
         }, 400);
     }
 }
@@ -235,6 +238,12 @@ function resetStats() {
     displayStats();
 }
 
+function stopThemeMusic() {
+    console.log('stop theme meusic');
+    theme_music.pause();
+    theme_music.currentTime = 0;
+}
+
 /** Document Ready **/
 
 $(document).ready(function () {
@@ -246,8 +255,9 @@ $(document).ready(function () {
         card_clicked($(this));
     });
 
-    $('#resetBtn').click(function (e) {
+    $('#resetBtn').on('click', function (e) {
         e.preventDefault();
+        stopThemeMusic();
         games_played++;
         createGame();
         resetStats();
