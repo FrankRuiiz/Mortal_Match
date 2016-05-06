@@ -7,17 +7,18 @@ Mortal Match is a game with 18 cards face down and the player has to try and mat
 **Technologies Used**
 
 * HTML
-* CSS - Responsive Design (Flexbox)
-* JavaScript / jQuery - DOM creation/Manipulation
+* CSS - Card Animations, Responsive Design (Flexbox)
+* JavaScript / jQuery - Object Oriented Programming, DOM creation/Manipulation
 
 **What I learned**
 
 In this project I was able to grow my understanding of JavaScript/jQuery, and see how these technologies can be used to create elements and interact with the DOM (document object model). I was also able to use Flexbox, which is a great tool for this type of layout.
 
 **Feature to Implement**
-* Sounds for unmatched cards
-* Improve reset/game end functionality and animation
-* Convert functionality to Object Oriented Programming
+* Player Health Bar
+* Lose condition with display message
+* Improve soundFx system
+* Add dynamic Stats/health bar creation
 
 ![alt text](screenshots/mortal_match1.PNG "All cards face down")
 
