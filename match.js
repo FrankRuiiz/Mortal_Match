@@ -124,54 +124,23 @@ var Mortal_Match = function() {
         }
     };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    /**
+     * checkForMatch - once the two cards are clicked, this function is called to see if te card faces are a match
+     */
     this.checkForMatch = function() {
-        if (this.first_card_clicked.find('.back').attr('src') === this.second_card_clicked.find('.back').attr('src')) {
+        if (this.first_card_clicked.find('.back').attr('src') === this.second_card_clicked.find('.back').attr('src')) { // a match is determined by comparing the src values
             this.match_counter++;
             this.first_card_clicked.add(this.second_card_clicked).fadeOut('slow');
             var matchedSrc = this.first_card_clicked.find('.back').attr('src');
             matchedSrc = matchedSrc.slice(7).split('.');
-            this.playSound(matchedSrc[0]);
+            this.playSound(matchedSrc[0]);  // plays the matched card's sound for a good match
             this.calculateAverage();
-            this.checkForWin();
+            this.checkForWin(); // checks if all cards have been matched
             this.resetCards();
         }
         else {
             var randomUnmatched = this.randomize(['bad1', 'bad2', 'bad3', 'bad4', 'bad5']);
-            this.playSound(randomUnmatched[0]);
+            this.playSound(randomUnmatched[0]);  // plays a random sound for a bad match
             this.canClick = false;
             setTimeout(function () {
                 self.first_card_clicked.removeClass('flipped');
@@ -181,39 +150,29 @@ var Mortal_Match = function() {
             }, 1000);
             this.calculateAverage();
         }
-
     };
 
+    /**
+     * checkForWin - if match_counter and the total_possible_matches is equal, the game is over and displays a win message
+     */
     this.checkForWin = function() {
         if (this.match_counter === this.total_possible_matches) {
             this.win = true; // variable doesn't matter right now since the user currently does not lose
             this.stopThemeMusic();
             setTimeout(function() {
-            self.winMessage(self.win);
+                self.winMessage(self.win);
             }, 400);
         }
     };
 
-    this.resetCards = function() {
-        this.first_card_clicked = null;
-        this.second_card_clicked = null;
-    };
-
-    this.playSound = function(soundParam) {
-        this.soundFx[soundParam].play();
-    };
-
-    this.stopThemeMusic = function() {
-        this.theme_music.pause();
-        this.theme_music.currentTime = 0;
-    };
-
-
-    
+    /**
+     * winMessage - currenly the user cannot lose the game so when all cards are matched this function will display the winning message
+     * @param win
+     */
     this.winMessage = function(win) {
         this.$game_area.empty();
         var $div = $('<div>', {
-           class: 'win-lose'
+            class: 'win-lose'
         }).hide();
         var $h1 = $('<h1>');
 
@@ -225,13 +184,32 @@ var Mortal_Match = function() {
                 self.playSound('win');
             }, 1200);
         }
-        // else{  // TODO: requres an added feature where the player can lose the game
+        // else{  // TODO: requires an added feature where the player can lose the game
         //     $h1.text('Fatality!');
         //     $div.append($h1);
         //     $div.appendTo($game_area);
         // }
     };
 
+    /**
+     * playSound - Dynamically plays sounds for cards matched, and not matched
+     * @param soundParam
+     */
+    this.playSound = function(soundParam) {
+        this.soundFx[soundParam].play();
+    };
+
+    /**
+     * stopThemMusic - Stops game theme music
+     */
+    this.stopThemeMusic = function() {
+        this.theme_music.pause();
+        this.theme_music.currentTime = 0;
+    };
+
+    /**
+     * resetStats - Sets the statistics elements to their initial state on page load and game reset
+     */
     this.resetStats = function() {
         this.accuracy = 0;
         this.match_counter = 0;
@@ -239,27 +217,46 @@ var Mortal_Match = function() {
         this.displayStats();
     };
 
+    /**
+     * resetCards - Sets card variables to null after matches, and none matches
+     */
+    this.resetCards = function() {
+        this.first_card_clicked = null;
+        this.second_card_clicked = null;
+    };
 
+    /**
+     * Click handler for reset button, clears game area and initializes a new game
+      */
     $('#resetBtn').on('click', function (e) {
         e.preventDefault();
         self.stopThemeMusic();
         self.games_played++;
-        self.createGame();
         self.resetStats();
-        self.displayStats();
+        self.init();
     });
 
 };
 
+/**
+ * Card - constructor function for the game cards
+ * @param value
+ * @param index
+ * @param parent
+ * @constructor
+ */
 var Card = function(value, index, parent) {
+    /**
+     * createCardElements - DOM creation for each card
+     */
     this.createCardElements = function() {
         var $cardContainer = $('<div>', {
             class: 'card-container'
         });
         var $card = $('<div>', {
             class: 'card',
-            click: function() {
-                parent.cardClicked($(this));
+            click: function() {     // onclick handler for each card
+                parent.cardClicked($(this));  // calls cardClicked()
             }
         }).appendTo($cardContainer);
         var $cardBack = $('<img>', {
@@ -273,9 +270,12 @@ var Card = function(value, index, parent) {
         }).appendTo($card);
         $cardContainer.appendTo(parent.$game_area);
 
-        this.renderCard();
+        this.renderCard();  // call render cards display them
     };
 
+    /**
+     * rederCards - handles the animation that shows the cards on the DOM with a 2 millisecond delay
+     */
     this.renderCard = function() {
         $.each($('.card-container'), function(i, card){
             var currentCard = $(card).hide();
@@ -285,10 +285,12 @@ var Card = function(value, index, parent) {
         });
     };
 
-    this.createCardElements();
+    this.createCardElements();  // initializes card creation methods
 };
 
-
+/**
+ *  Creates and initializes the game on page load
+ */
 $(document).ready(function() {
     var game = new Mortal_Match();
     game.init();
