@@ -1,7 +1,6 @@
 
 var Mortal_Match = function() {
     var self = this;
-    this.theme_music = new Audio('audio/theme.mp3');
     this.first_card_clicked = null;
     this.second_card_clicked = null;
     this.total_possible_matches = 9;
@@ -13,6 +12,25 @@ var Mortal_Match = function() {
     this.games_played = 0;
     this.$game_area = $('.game-area');
     this.images = ['nightwolf', 'kano', 'liuekang', 'reptile', 'scorpion', 'shangtsung', 'sonya', 'subzero', 'jax'];
+    //this.images = ['nightwolf', 'kano'];  // Test array
+    this.theme_music = new Audio('audio/theme.mp3');
+    this.soundFx = {
+        jax: new Audio('audio/jax.mp3'),
+        kano: new Audio('audio/kano.mp3'),
+        nightwolf: new Audio('audio/nightwolf.mp3'),
+        liuekang: new Audio('audio/liukang.mp3'),
+        reptile: new Audio('audio/reptile.mp3'),
+        scorpion: new Audio('audio/scorpion.mp3'),
+        shangtsung: new Audio('audio/shangtsung.mp3'),
+        sonya: new Audio('audio/sonya.mp3'),
+        subzero: new Audio('audio/subzero.mp3'),
+        win: new Audio('audio/excellent.wav'),
+        bad1:new Audio('audio/bad1.mp3'),
+        bad2:new Audio('audio/bad2.mp3'),
+        bad3:new Audio('audio/bad3.mp3'),
+        bad4:new Audio('audio/bad4.mp3'),
+        bad5:new Audio('audio/laugh.wav')
+    };
 
     this.init = function() {
         this.displayStats();
@@ -72,8 +90,100 @@ var Mortal_Match = function() {
             this.displayStats();
             this.checkForMatch();
         }
-    }
+    };
 
+    this.checkForMatch = function() {
+        if (this.first_card_clicked.find('.back').attr('src') === this.second_card_clicked.find('.back').attr('src')) {
+            this.match_counter++;
+            this.first_card_clicked.add(this.second_card_clicked).fadeOut('slow');
+            var matchedSrc = this.first_card_clicked.find('.back').attr('src');
+            matchedSrc = matchedSrc.slice(7).split('.');
+            this.playSound(matchedSrc[0]);
+            this.calculateAverage();
+            this.checkForWin();
+            this.resetCards();
+        }
+        else {
+            var randomUnmatched = this.randomize(['bad1', 'bad2', 'bad3', 'bad4', 'bad5']);
+            this.playSound(randomUnmatched[0]);
+            this.canClick = false;
+            setTimeout(function () {
+                self.first_card_clicked.removeClass('flipped');
+                self.second_card_clicked.removeClass('flipped');
+                self.resetCards();
+                self.canClick = true;
+            }, 1000);
+            this.calculateAverage();
+        }
+
+    };
+
+    this.checkForWin = function() {
+        if (this.match_counter === this.total_possible_matches) {
+            this.win = true; // variable doesn't matter right now since the user currently does not lose
+            this.stopThemeMusic();
+            setTimeout(function() {
+            self.winMessage(self.win);
+            }, 400);
+        }
+    };
+
+    this.resetCards = function() {
+        this.first_card_clicked = null;
+        this.second_card_clicked = null;
+    };
+
+    this.playSound = function(soundParam) {
+        this.soundFx[soundParam].play();
+    };
+
+    this.stopThemeMusic = function() {
+        this.theme_music.pause();
+        this.theme_music.currentTime = 0;
+    };
+
+    this.calculateAverage = function() {
+        this.accuracy = Math.round((this.match_counter / this.attempts) * 100);
+    };
+    
+    this.winMessage = function(win) {
+        this.$game_area.empty();
+        var $div = $('<div>', {
+           class: 'win-lose'
+        }).hide();
+        var $h1 = $('<h1>');
+
+        if(this.win) {
+            $h1.text('Excellent!');
+            $div.append($h1);
+            setTimeout(function() {
+                $div.appendTo(self.$game_area).fadeIn();
+                self.playSound('win');
+            }, 1200);
+        }
+        // else{  // TODO: requres an added feature where the player can lose the game
+        //     $h1.text('Fatality!');
+        //     $div.append($h1);
+        //     $div.appendTo($game_area);
+        // }
+    };
+
+    this.resetStats = function() {
+        this.accuracy = 0;
+        this.match_counter = 0;
+        this.attempts = 0;
+        this.displayStats();
+    };
+
+
+    $('#resetBtn').on('click', function (e) {
+        e.preventDefault();
+        self.stopThemeMusic();
+        self.games_played++;
+        self.createGame();
+        self.resetStats();
+        self.displayStats();
+    });
 
 };
 
@@ -145,6 +255,8 @@ var Card = function(value, index, parent) {
 $(document).ready(function() {
     var game = new Mortal_Match();
     game.init();
+
+
 });
 
 
