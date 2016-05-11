@@ -6,7 +6,7 @@ var Mortal_Match = function() {
     var self = this;
     this.first_card_clicked = null;
     this.second_card_clicked = null;
-    this.total_possible_matches = 9;
+    this.total_possible_matches = 2;
     this.win = false;
     this.match_counter = 0;
     this.canClick = true;
@@ -14,8 +14,8 @@ var Mortal_Match = function() {
     this.accuracy = 0;
     this.games_played = 0;
     this.$game_area = $('.game-area');
-    this.images = ['nightwolf', 'kano', 'liuekang', 'reptile', 'scorpion', 'shangtsung', 'sonya', 'subzero', 'jax'];
-    //this.images = ['nightwolf', 'kano'];  // Test array
+    //this.images = ['nightwolf', 'kano', 'liuekang', 'reptile', 'scorpion', 'shangtsung', 'sonya', 'subzero', 'jax'];
+    this.images = ['nightwolf', 'kano'];  // Test array
     this.theme_music = new Audio('audio/theme.mp3');  // Main game song
     this.soundFx = {                                  // Game sound fx
         jax: new Audio('audio/jax.mp3'),
@@ -175,10 +175,12 @@ var Mortal_Match = function() {
             class: 'win-lose'
         }).hide();
         var $h1 = $('<h1>');
+        var $p = $('<p>');
 
         if(this.win) {
             $h1.text('Excellent!');
-            $div.append($h1);
+            $p.text('Press RESTART to play again!');
+            $div.append($p, $h1);
             setTimeout(function() {
                 $div.appendTo(self.$game_area).fadeIn();
                 self.playSound('win');
